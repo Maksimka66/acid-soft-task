@@ -1,0 +1,29 @@
+.field-layout {
+    position: relative;
+    margin-bottom: 28px;
+
+    &__label {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        color: #3d3d3a;
+        margin-bottom: 6px;
+        letter-spacing: 0.1px;
+    }
+
+    &__field {
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 16px;
+        border-radius: 6px;
+        border: 1px solid #dedcd122;
+        color: #141413;
+    }
+
+    &__error {
+        position: absolute;
+        font-size: 14px;
+        color: #df2319;
+    }
+}
+

@@ -1,0 +1,18 @@
+.login-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__extra-info {
+        display: flex;
+        gap: 4px;
+        font-size: 14px;
+        color: #3d3d3a;
+
+        &--link {
+            color: #ba7517;
+        }
+    }
+}
+
