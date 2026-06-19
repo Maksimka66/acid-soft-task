@@ -6,11 +6,13 @@ export const getOneWorkoutSchema = [
 ]
 
 export const createWorkoutSchema = [
-    body('name').customSanitizer(trimReplace).notEmpty().withMessage('Name should not be empty')
+    body('name').customSanitizer(trimReplace).notEmpty().withMessage('Name should not be empty'),
+    body('description').customSanitizer(trimReplace).optional()
 ]
 
 export const updateWorkoutSchema = [
     param('id').customSanitizer(trimReplace).notEmpty().withMessage('Id should not be empty'),
-    body('name').customSanitizer(trimReplace).notEmpty().withMessage('Name should not be empty')
+    body('name').customSanitizer(trimReplace).notEmpty().withMessage('Name should not be empty'),
+    body('description').customSanitizer(trimReplace).optional()
 ]
 

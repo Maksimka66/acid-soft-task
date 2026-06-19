@@ -36,6 +36,13 @@ export const workoutsApi = createApi({
                 url: `/api/workouts/${id}/complete`,
                 method: 'POST'
             })
+        }),
+        addExercise: builder.mutation({
+            query: ({ id, ...body }) => ({
+                url: `/api/workouts/${id}/exercises`,
+                method: 'POST',
+                body
+            })
         })
     })
 })

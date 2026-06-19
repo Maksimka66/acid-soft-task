@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { ValidateSchemaSignIn } from '../../schemas/signInSchema'
 import { useSignInMutation } from '../../store/auth/authApi'
 import type { ISignInForm } from '../../interfaces/inputData/inputData'
@@ -8,6 +7,7 @@ import SubmitFormButton from '../SubmitFormButton/SubmitFormButton'
 import Loader from '../Loader/Loader'
 import Input from '../Input/Input'
 import './SignInForm.scss'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 export default function SignInForm() {
     const [loginUser, { isLoading }] = useSignInMutation()
@@ -19,7 +19,7 @@ export default function SignInForm() {
         formState: { errors }
     } = useForm<ISignInForm>({
         mode: 'onSubmit',
-        resolver: yupResolver(ValidateSchemaSignIn)
+        resolver: zodResolver(ValidateSchemaSignIn)
     })
 
     async function onSubmit({ email, name, password }) {

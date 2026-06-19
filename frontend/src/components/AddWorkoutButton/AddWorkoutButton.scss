@@ -1,0 +1,16 @@
+.add-workout {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #141413;
+    border: 1px solid #1f1e1d66;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition:
+        background-color 0.15s,
+        transform 0.1s;
+}
+

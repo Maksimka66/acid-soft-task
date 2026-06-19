@@ -5,6 +5,7 @@ import SignUp from './pages/SignUp/SignUp'
 import SignIn from './pages/SignIn/SignIn'
 import WorkoutDetails from './pages/WorkoutDetails/WorkoutDetails'
 import WorkoutList from './pages/WorkoutList/WorkoutList'
+import NotFound from './pages/NotFound/NotFound'
 import WorkoutHistory from './pages/WorkoutHistory/WorkoutHistory'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             </Route>
             <Route path='/signin' element={<SignIn />}></Route>
             <Route path='/signup' element={<SignUp />}></Route>
+            <Route path='*' element={<NotFound />} />
         </Routes>
     )
 }

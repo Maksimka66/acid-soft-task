@@ -1,2 +1,21 @@
-.workout-list {
+.workout-page {
+    &__top-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+    }
+
+    &__list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 12px;
+    }
+
+    &__item {
+        padding: 20px;
+        border: 1px solid #1f1e1d26;
+        border-radius: 10px;
+    }
 }
+

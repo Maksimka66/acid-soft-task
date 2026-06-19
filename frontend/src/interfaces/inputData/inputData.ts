@@ -10,3 +10,15 @@ export interface ISignInForm {
     password: string
 }
 
+export interface ICreateWorkout {
+    name: string
+    description: string
+}
+
+export interface ICreateExercise {
+    name: string
+    sets: number
+    reps: number
+    weight: number
+}
+

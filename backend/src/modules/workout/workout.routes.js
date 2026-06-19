@@ -109,13 +109,5 @@ workoutRouter.delete('/:id', getOneWorkoutSchema, async (req, res, next) => {
     }
 })
 
-workoutRouter.post('/:id/complete', async (req, res, next) => {
-    try {
-    } catch (e) {
-        console.log(e)
-        next(e)
-    }
-})
-
 export default workoutRouter
 

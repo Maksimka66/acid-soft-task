@@ -24,4 +24,12 @@ body {
 
 button {
     cursor: pointer;
+    transition:
+        background-color 0.3s,
+        transform 0.3s;
 }
+
+button:hover {
+    background-color: #f4f3ed;
+}
+

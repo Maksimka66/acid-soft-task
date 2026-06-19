@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { ValidateSchemaSignUp } from '../../schemas/signUpSchema'
 import type { ISignUpForm } from '../../interfaces/inputData/inputData'
 import { useSignUpMutation } from '../../store/auth/authApi'
@@ -19,7 +19,7 @@ export default function SignUpForm() {
         formState: { errors }
     } = useForm<ISignUpForm>({
         mode: 'onSubmit',
-        resolver: yupResolver(ValidateSchemaSignUp)
+        resolver: zodResolver(ValidateSchemaSignUp)
     })
 
     async function onSubmit({ email, username, password }: ISignUpForm) {

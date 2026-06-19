@@ -1,0 +1,14 @@
+.search-layout {
+    position: relative;
+    margin-bottom: 20px;
+
+    &__field {
+        width: 100%;
+        font-size: 16px;
+        padding: 8px 12px;
+        color: #141413;
+        border-radius: 6px;
+        border: 1px solid #1f1e1d26;
+    }
+}
+
