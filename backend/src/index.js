@@ -4,7 +4,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import router from './core/routes.js'
 import sequelize from './core/sequelize.js'
-// import limiter from './middlewares/rateLimiterMiddleware.js'
+import limiter from './middlewares/rateLimiterMiddleware.js'
 import './modules/modelsConnection.js'
 import { errorHandler } from './middlewares/errorHandlingMiddleware.js'
 
@@ -13,7 +13,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
-// app.use(limiter)
+app.use(limiter)
 app.use('/api', router)
 app.use(errorHandler)
 
