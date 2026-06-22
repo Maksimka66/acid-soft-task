@@ -47,7 +47,7 @@ userRouter.post('/signin', signInSchema, validation, async (req, res, next) => {
     }
 })
 
-userRouter.post('/logout', logoutSchema, validation, async (req, res, next) => {
+userRouter.post('/logout', authHandler, logoutSchema, validation, async (req, res, next) => {
     try {
         const { refreshToken } = matchedData(req)
 
@@ -62,7 +62,7 @@ userRouter.post('/logout', logoutSchema, validation, async (req, res, next) => {
     }
 })
 
-userRouter.get('/refresh', refreshSchema, validation, async (req, res, next) => {
+userRouter.get('/refresh', authHandler, refreshSchema, validation, async (req, res, next) => {
     try {
         const { refreshToken } = matchedData(req)
 

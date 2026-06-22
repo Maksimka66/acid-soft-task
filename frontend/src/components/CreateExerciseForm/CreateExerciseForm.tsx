@@ -9,7 +9,7 @@ import Loader from '../Loader/Loader'
 import { errorMessage, successMessage } from '../../utils/toastMessage'
 import './CreateExerciseForm.scss'
 
-export default function CreateExerciseForm({ workoutId }) {
+export default function CreateExerciseForm({ id }) {
     const [createExercise, { isLoading }] = useAddExerciseMutation()
 
     const {
@@ -24,7 +24,7 @@ export default function CreateExerciseForm({ workoutId }) {
 
     async function onSubmit(inputData: ICreateExercise) {
         try {
-            await createExercise({ workoutId, ...inputData }).unwrap()
+            await createExercise({ id, ...inputData }).unwrap()
 
             successMessage('New exercise created!')
 
@@ -46,34 +46,35 @@ export default function CreateExerciseForm({ workoutId }) {
                 <Input
                     id='name'
                     type='text'
-                    placeholder='Enter a workout name'
-                    label='Workout name'
+                    placeholder='Exercise name'
+                    label='Name'
                     register={register('name')}
                     error={errors.name?.message}
                 />
                 <Input
                     id='sets'
-                    type='text'
-                    placeholder='Add your sets'
+                    type='number'
+                    placeholder='Number of sets'
                     label='Sets'
-                    register={register('sets')}
+                    register={register('sets', { valueAsNumber: true })}
                     error={errors.sets?.message}
                 />
                 <Input
                     id='reps'
-                    type='text'
-                    placeholder='Add your reps'
+                    type='number'
+                    placeholder='Number of reps'
                     label='Reps'
-                    register={register('reps')}
+                    register={register('reps', { valueAsNumber: true })}
                     error={errors.reps?.message}
                 />
                 <Input
                     id='weight'
-                    type='text'
-                    placeholder='Add your weight'
+                    type='number'
+                    placeholder='Weight (kg)'
                     label='Weight'
-                    register={register('reps')}
+                    register={register('weight', { valueAsNumber: true })}
                     error={errors.weight?.message}
+                    step={0.1}
                 />
             </div>
             <SubmitFormButton>Create a exercise</SubmitFormButton>

@@ -1,0 +1,21 @@
+.workout-history {
+    &__container {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 16px 24px;
+    }
+
+    &__title {
+        font-size: 22px;
+        font-weight: 500;
+        color: #2c2c2a;
+        margin-bottom: 4px;
+    }
+
+    &__sub {
+        font-size: 14px;
+        color: #5f5e5a;
+        margin-bottom: 16px;
+    }
+}
+

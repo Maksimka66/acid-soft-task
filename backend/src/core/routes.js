@@ -9,7 +9,7 @@ const router = new Router()
 
 router.use('/user', userRouter)
 router.use('/workouts', authHandler, workoutRouter)
-router.use('/exercises', authHandler, exerciseRouter)
+router.use('/workouts/:id/exercises', authHandler, exerciseRouter)
 router.use('/history', authHandler, historyRouter)
 
 export default router

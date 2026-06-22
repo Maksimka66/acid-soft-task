@@ -8,7 +8,6 @@ import SubmitFormButton from '../SubmitFormButton/SubmitFormButton'
 import { ValidateSchemaCreateWorkout } from '../../schemas/createWorkoutSchema'
 import type { ICreateWorkout } from '../../interfaces/inputData/inputData'
 import { errorMessage, successMessage } from '../../utils/toastMessage'
-import './CreateWorkoutForm.scss'
 
 export default function CreateWorkoutForm() {
     const navigation = useNavigate()

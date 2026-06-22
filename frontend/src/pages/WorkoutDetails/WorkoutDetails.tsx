@@ -130,7 +130,7 @@ export default function WorkoutDetails() {
                         isOpen={isOpenForExercise}
                         onClose={() => toggleModalForExercise(false)}
                     >
-                        <AddExerciseForm workoutId={id} />
+                        <AddExerciseForm id={id} />
                     </ModalWindow>
                 </>
             ) : (

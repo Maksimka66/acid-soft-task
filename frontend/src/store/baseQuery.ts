@@ -9,8 +9,10 @@ import { savedTokens } from './auth/authSlice'
 
 const baseQuery = fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
+    credentials: 'include',
     prepareHeaders: (headers: Headers, { getState }) => {
         const state = getState() as RootState
+
         const token = state.auth.accessToken
 
         if (token) {
@@ -25,16 +27,8 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryForRefresh = fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
-    prepareHeaders: (headers: Headers, { getState }) => {
-        const state = getState() as RootState
-        const refreshToken = state.auth.refreshToken
-
-        if (refreshToken) {
-            headers.set('Authorization', `Bearer ${refreshToken}`)
-        } else {
-            headers.delete('Authorization')
-        }
-
+    credentials: 'include',
+    prepareHeaders: (headers: Headers) => {
         return headers
     }
 })
@@ -58,7 +52,6 @@ export const baseQueryWithReauth: BaseQueryFn<
 
         if (refreshResult.data) {
             api.dispatch(savedTokens(refreshResult.data))
-
             result = await baseQuery(args, api, extraOptions)
         } else {
             console.log('No token!')
