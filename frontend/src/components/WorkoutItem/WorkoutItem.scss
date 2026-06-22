@@ -30,21 +30,11 @@
     }
 
     &__bottom-container {
-        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: flex-start;
         flex-grow: 1;
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 100%;
-            height: 1px;
-            background-color: #1f1e1d26;
-        }
     }
 
     &__date-layout {

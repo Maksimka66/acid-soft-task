@@ -5,11 +5,11 @@ import { useCreateWorkoutMutation } from '../../store/workouts/workoutsApi'
 import Input from '../Input/Input'
 import Loader from '../Loader/Loader'
 import SubmitFormButton from '../SubmitFormButton/SubmitFormButton'
+import ModalWindow from '../ModalWindow/ModalWindow'
 import { ValidateSchemaCreateWorkout } from '../../schemas/createWorkoutSchema'
 import type { ICreateWorkout } from '../../interfaces/inputData/inputData'
 import { errorMessage, successMessage } from '../../utils/toastMessage'
 import './CreateWorkoutForm.scss'
-import ModalWindow from '../ModalWindow/ModalWindow'
 
 export default function CreateWorkoutForm({ isOpen, onClose }) {
     const navigation = useNavigate()

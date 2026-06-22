@@ -18,7 +18,7 @@ export const workoutsSlice = createSlice({
     reducers: {
         filterWorkouts: (state, { payload }) => {
             if (!payload) {
-                state.filteredWorkouts = state.workouts
+                state.filteredWorkouts = []
             } else {
                 state.filteredWorkouts = state.workouts.filter((item) =>
                     item.name.toLowerCase().includes(payload.toLowerCase())
