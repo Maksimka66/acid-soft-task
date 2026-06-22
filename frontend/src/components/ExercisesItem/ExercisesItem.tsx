@@ -1,4 +1,3 @@
-import Check from '../../icons/Check/Check'
 import Exercise from '../../icons/Exercise/Exercise'
 import './ExercisesItem.scss'
 
@@ -22,10 +21,6 @@ export default function ExercisesItem({ exercise }) {
                     </li>
                 </ul>
             </div>
-            <button className=''>
-                <Check />
-                Mark as complete
-            </button>
         </>
     )
 }

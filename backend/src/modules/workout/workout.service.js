@@ -32,7 +32,7 @@ export async function createWorkout({ userId, name, description }) {
 }
 
 export async function updateWorkout({ id, userId, data }) {
-    const workout = await this.getOneWorkout({ id, userId })
+    const workout = await getOneWorkout({ id, userId })
 
     if (!workout) {
         throw CustomError.badRequest('No such workouts!')

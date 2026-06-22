@@ -31,7 +31,11 @@ export default function WorkoutItem({ workoutItem }) {
                 </div>
                 <div className='item-icons-layout__action-container'>
                     <EditWorkoutButton isOpen={isOpenForEdit} toggleModal={toggleModalForEdit}>
-                        <ChangeWorkoutForm id={id} toggleModal={() => toggleModalForEdit(false)} />
+                        <ChangeWorkoutForm
+                            id={id}
+                            onClose={() => toggleModalForEdit(false)}
+                            isOpen={isOpenForEdit}
+                        />
                     </EditWorkoutButton>
                     <DeleteWorkoutButton
                         isOpen={isOpenForDelete}
@@ -44,17 +48,19 @@ export default function WorkoutItem({ workoutItem }) {
                     </DeleteWorkoutButton>
                 </div>
             </div>
-            <p className='item-name'>{name}</p>
-            <p className='item-description'>{description}</p>
             <div className='item-icons-layout__bottom-container'>
-                <div className='date'>
-                    <Calendar />
-                    <span>{createdAt}</span>
+                <p className='item-name'>{name}</p>
+                {description && <p className='item-description'>{description}</p>}
+                <div className='item-icons-layout__date-layout'>
+                    <div className='date'>
+                        <Calendar />
+                        <span>{createdAt}</span>
+                    </div>
+                    <NavLink className='details-link' to={`/workout-details/${id}`}>
+                        <Arrow />
+                        Details
+                    </NavLink>
                 </div>
-                <NavLink className='details-link' to={`/workout-details/${id}`}>
-                    <Arrow />
-                    Details
-                </NavLink>
             </div>
         </>
     )

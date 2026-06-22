@@ -91,7 +91,8 @@ export default function WorkoutDetails() {
                                 >
                                     <ChangeWorkoutForm
                                         id={id}
-                                        toggleModal={() => toggleModalForEdit(false)}
+                                        isOpen={isOpenForEdit}
+                                        onClose={() => toggleModalForEdit(false)}
                                     />
                                 </EditWorkoutButton>
                                 <DeleteWorkoutButton
@@ -130,7 +131,11 @@ export default function WorkoutDetails() {
                         isOpen={isOpenForExercise}
                         onClose={() => toggleModalForExercise(false)}
                     >
-                        <AddExerciseForm id={id} />
+                        <AddExerciseForm
+                            id={id}
+                            isOpen={isOpenForExercise}
+                            onClose={() => toggleModalForExercise(false)}
+                        />
                     </ModalWindow>
                 </>
             ) : (

@@ -8,8 +8,10 @@ import SubmitFormButton from '../SubmitFormButton/SubmitFormButton'
 import { ValidateSchemaCreateWorkout } from '../../schemas/createWorkoutSchema'
 import type { ICreateWorkout } from '../../interfaces/inputData/inputData'
 import { errorMessage, successMessage } from '../../utils/toastMessage'
+import './CreateWorkoutForm.scss'
+import ModalWindow from '../ModalWindow/ModalWindow'
 
-export default function CreateWorkoutForm() {
+export default function CreateWorkoutForm({ isOpen, onClose }) {
     const navigation = useNavigate()
 
     const [createWorkout, { isLoading }] = useCreateWorkoutMutation()
@@ -26,13 +28,15 @@ export default function CreateWorkoutForm() {
 
     async function onSubmit({ name, description }: ICreateWorkout) {
         try {
-            const { data } = await createWorkout({ name, description }).unwrap()
+            const res = await createWorkout({ name, description }).unwrap()
 
             reset()
 
+            onClose()
+
             successMessage('You`ve created a new workout!')
 
-            navigation(`/workout-details/${data.id}`)
+            navigation(`/workout-details/${res.id}`)
         } catch (e) {
             console.log(e)
 
@@ -45,30 +49,32 @@ export default function CreateWorkoutForm() {
     }
 
     return (
-        <form className='create-workout' onSubmit={handleSubmit(onSubmit)}>
-            <div className='create-workout__container'>
-                <Input
-                    id='name'
-                    type='text'
-                    placeholder='Enter a workout name'
-                    label='Workout name'
-                    register={register('name')}
-                    error={errors.name?.message}
-                />
-                <div className='create-workout__description-layout'>
-                    <label htmlFor='description' className='create-workout__description-label'>
-                        Description
-                    </label>
-                    <textarea
-                        id='description'
-                        className='create-workout__description'
-                        placeholder='Add a description (optional)'
-                        {...register('description')}
+        <ModalWindow isOpen={isOpen} onClose={onClose}>
+            <form className='create-workout' onSubmit={handleSubmit(onSubmit)}>
+                <div className='create-workout__container'>
+                    <Input
+                        id='name'
+                        type='text'
+                        placeholder='Enter a workout name'
+                        label='Workout name'
+                        register={register('name')}
+                        error={errors.name?.message}
                     />
+                    <div className='create-workout__description-layout'>
+                        <label htmlFor='description' className='create-workout__description-label'>
+                            Description
+                        </label>
+                        <textarea
+                            id='description'
+                            className='create-workout__description'
+                            placeholder='Add a description (optional)'
+                            {...register('description')}
+                        />
+                    </div>
                 </div>
-            </div>
-            <SubmitFormButton>Create a workout</SubmitFormButton>
-        </form>
+                <SubmitFormButton>Create a workout</SubmitFormButton>
+            </form>
+        </ModalWindow>
     )
 }
 

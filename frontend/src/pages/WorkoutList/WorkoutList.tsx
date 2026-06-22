@@ -8,7 +8,6 @@ import AddWorkoutButton from '../../components/AddWorkoutButton/AddWorkoutButton
 import CreateWorkoutForm from '../../components/CreateWorkoutForm/CreateWorkoutForm'
 import WorkoutItem from '../../components/WorkoutItem/WorkoutItem'
 import SearchWorkout from '../../components/SearchWorkout/SearchWorkout'
-import ModalWindow from '../../components/ModalWindow/ModalWindow'
 import EmptyState from '../../components/EmptyState/EmptyState'
 import { errorMessage } from '../../utils/toastMessage'
 import './WorkoutList.scss'
@@ -63,9 +62,7 @@ export default function WorkoutList() {
                     <EmptyState>You don't have any workouts for now</EmptyState>
                 )}
             </div>
-            <ModalWindow isOpen={isOpen} onClose={() => toggleModal(false)}>
-                <CreateWorkoutForm />
-            </ModalWindow>
+            <CreateWorkoutForm isOpen={isOpen} onClose={() => toggleModal(false)} />
         </>
     )
 }

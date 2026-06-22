@@ -8,8 +8,9 @@ import Input from '../Input/Input'
 import Loader from '../Loader/Loader'
 import { errorMessage, successMessage } from '../../utils/toastMessage'
 import './CreateExerciseForm.scss'
+import ModalWindow from '../ModalWindow/ModalWindow'
 
-export default function CreateExerciseForm({ id }) {
+export default function CreateExerciseForm({ id, isOpen, onClose }) {
     const [createExercise, { isLoading }] = useAddExerciseMutation()
 
     const {
@@ -26,6 +27,8 @@ export default function CreateExerciseForm({ id }) {
         try {
             await createExercise({ id, ...inputData }).unwrap()
 
+            onClose()
+
             successMessage('New exercise created!')
 
             reset()
@@ -41,44 +44,46 @@ export default function CreateExerciseForm({ id }) {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div className='create-workout__container'>
-                <Input
-                    id='name'
-                    type='text'
-                    placeholder='Exercise name'
-                    label='Name'
-                    register={register('name')}
-                    error={errors.name?.message}
-                />
-                <Input
-                    id='sets'
-                    type='number'
-                    placeholder='Number of sets'
-                    label='Sets'
-                    register={register('sets', { valueAsNumber: true })}
-                    error={errors.sets?.message}
-                />
-                <Input
-                    id='reps'
-                    type='number'
-                    placeholder='Number of reps'
-                    label='Reps'
-                    register={register('reps', { valueAsNumber: true })}
-                    error={errors.reps?.message}
-                />
-                <Input
-                    id='weight'
-                    type='number'
-                    placeholder='Weight (kg)'
-                    label='Weight'
-                    register={register('weight', { valueAsNumber: true })}
-                    error={errors.weight?.message}
-                    step={0.1}
-                />
-            </div>
-            <SubmitFormButton>Create a exercise</SubmitFormButton>
-        </form>
+        <ModalWindow isOpen={isOpen} onClose={onClose}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className='create-exercise__container'>
+                    <Input
+                        id='name'
+                        type='text'
+                        placeholder='Exercise name'
+                        label='Name'
+                        register={register('name')}
+                        error={errors.name?.message}
+                    />
+                    <Input
+                        id='sets'
+                        type='number'
+                        placeholder='Number of sets'
+                        label='Sets'
+                        register={register('sets', { valueAsNumber: true })}
+                        error={errors.sets?.message}
+                    />
+                    <Input
+                        id='reps'
+                        type='number'
+                        placeholder='Number of reps'
+                        label='Reps'
+                        register={register('reps', { valueAsNumber: true })}
+                        error={errors.reps?.message}
+                    />
+                    <Input
+                        id='weight'
+                        type='number'
+                        placeholder='Weight (kg)'
+                        label='Weight'
+                        register={register('weight', { valueAsNumber: true })}
+                        error={errors.weight?.message}
+                        step={0.1}
+                    />
+                </div>
+                <SubmitFormButton>Create a exercise</SubmitFormButton>
+            </form>
+        </ModalWindow>
     )
 }
 
