@@ -53,3 +53,4 @@ npm run dev
 ## Environment Variables
 
 ### Backend `.env.example`
+### Frontend `.env.example`
