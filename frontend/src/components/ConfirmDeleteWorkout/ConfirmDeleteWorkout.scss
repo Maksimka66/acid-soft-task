@@ -1,0 +1,31 @@
+.text {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 32px;
+    color: #1f1f1d;
+    text-align: center;
+}
+
+.buttons-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+
+    &__button {
+        padding: 20px 48px;
+        border-radius: 12px;
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 1px;
+
+        &--fulfill {
+            background-color: #c5582c;
+        }
+
+        &--reject {
+            background-color: #2cc52c;
+        }
+    }
+}
+

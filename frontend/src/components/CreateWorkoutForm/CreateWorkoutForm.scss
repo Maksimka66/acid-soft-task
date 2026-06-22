@@ -2,6 +2,37 @@
     position: relative;
 
     &__container {
+        margin-bottom: 32px;
+    }
+
+    &__description-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 6px;
+        letter-spacing: 0.1px;
+        color: #3d3d3a;
+    }
+
+    &__description {
+        width: 100%;
+        min-height: 100px;
+        padding: 10px 12px;
+        font-size: 14px;
+        font-family: inherit;
+        border: 0.5px solid #d3d1c7;
+        border-radius: 8px;
+        color: #2c2c2a;
+        box-sizing: border-box;
+        resize: vertical;
+        outline: none;
+        transition:
+            border-color 0.15s,
+            box-shadow 0.15s;
+
+        &::placeholder {
+            color: #b4b2a9;
+        }
     }
 }
 

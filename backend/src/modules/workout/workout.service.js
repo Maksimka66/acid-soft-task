@@ -1,57 +1,55 @@
 import { Workout } from './workout.model.js'
+import { Exercise } from '../exercise/exercise.model.js'
 import { CustomError } from '../../errorHandlers/apiErrors.js'
 
-class WorkoutService {
-    getAllWorkouts = async () => {
-        const workouts = await Workout.findAll()
+export async function getAllWorkouts(userId) {
+    const workouts = await Workout.findAll({ where: { userId } })
 
-        return workouts
+    return workouts
+}
+
+export async function getOneWorkout({ id, userId }) {
+    const workout = await Workout.findOne({
+        where: { id, userId },
+        include: [Exercise]
+    })
+
+    if (!workout) {
+        throw CustomError.badRequest('No such workouts!')
     }
 
-    getOneWorkout = async (id) => {
-        const workout = await Workout.findOne({
-            where: {
-                id
-            }
-        })
+    return workout
+}
 
-        if (!workout) {
-            throw CustomError.badRequest('No such workouts!')
-        }
+export async function createWorkout({ userId, name, description }) {
+    const newWorkout = await Workout.create({
+        userId,
+        name,
+        description
+    })
+
+    return newWorkout
+}
+
+export async function updateWorkout({ id, userId, data }) {
+    const workout = await this.getOneWorkout({ id, userId })
+
+    if (!workout) {
+        throw CustomError.badRequest('No such workouts!')
+    }
+
+    await workout.update(data)
+
+    return workout
+}
+
+export async function deleteWorkout({ id, userId }) {
+    const workout = await getOneWorkout({ id, userId })
+
+    if (workout) {
+        await workout.destroy()
 
         return workout
     }
-
-    createWorkout = async ({ userId, name, description }) => {
-        const newWorkout = await Workout.create({
-            userId,
-            name,
-            description
-        })
-
-        return newWorkout
-    }
-
-    updateWorkout = async ({ id, data }) => {
-        const workout = await this.getOneWorkout(id)
-
-        if (workout) {
-            await workout.update(data)
-
-            return workout
-        }
-    }
-
-    deleteWorkout = async (id) => {
-        const workout = await this.getOneWorkout(id)
-
-        if (workout) {
-            const deletedWorkout = await workout.destroy()
-
-            return deletedWorkout
-        }
-    }
 }
-
-export default new WorkoutService()
 

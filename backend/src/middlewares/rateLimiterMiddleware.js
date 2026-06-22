@@ -3,8 +3,8 @@ import { RedisStore } from 'rate-limit-redis'
 import redisClient from '../config/config.js'
 
 const limiter = rateLimit({
-    windowMs: 0.3 * 60 * 1000,
-    limit: 3,
+    windowMs: 10 * 60 * 1000,
+    limit: 100,
     ipv6Subnet: 56,
     store: new RedisStore({
         sendCommand: (command, ...args) => redisClient.call(command, ...args)

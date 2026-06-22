@@ -1,0 +1,32 @@
+.navigation {
+    &__list {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        padding: 8px 14px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #5f5e5a;
+        text-decoration: none;
+        border-radius: 8px;
+        transition:
+            background-color 0.15s,
+            color 0.15s;
+
+        &:hover {
+            background-color: #f1efe8;
+            color: #2c2c2a;
+        }
+
+        &.active {
+            color: #854f0b;
+            background-color: #faeeda;
+        }
+    }
+}
+

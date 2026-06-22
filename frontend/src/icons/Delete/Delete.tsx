@@ -2,15 +2,12 @@ export default function Delete() {
     return (
         <svg
             xmlns='http://www.w3.org/2000/svg'
-            width='16px'
-            height='16px'
+            width='18px'
+            height='18px'
             viewBox='0 -0.5 21 21'
             version='1.1'
         >
-            <title>delete [#1487]</title>
-            <desc>Created with Sketch.</desc>
-            <defs></defs>
-            <g id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'>
+            <g id='Page-1' stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
                 <g
                     id='Dribbble-Light-Preview'
                     transform='translate(-179.000000, -360.000000)'

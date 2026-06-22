@@ -16,14 +16,16 @@
         padding: 8px 12px;
         font-size: 16px;
         border-radius: 6px;
-        border: 1px solid #dedcd122;
-        color: #141413;
+        border: 1px solid #dedcd1;
+        color: #2c2c2a;
     }
 
     &__error {
         position: absolute;
         font-size: 14px;
         color: #df2319;
+        bottom: -18px;
+        left: 0;
     }
 }
 

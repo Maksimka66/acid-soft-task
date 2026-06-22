@@ -7,6 +7,7 @@ import { useSignUpMutation } from '../../store/auth/authApi'
 import Input from '../Input/Input'
 import Loader from '../Loader/Loader'
 import SubmitFormButton from '../SubmitFormButton/SubmitFormButton'
+import { errorMessage, successMessage } from '../../utils/toastMessage'
 import './SignUpForm.scss'
 
 export default function SignUpForm() {
@@ -16,6 +17,7 @@ export default function SignUpForm() {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors }
     } = useForm<ISignUpForm>({
         mode: 'onSubmit',
@@ -24,11 +26,17 @@ export default function SignUpForm() {
 
     async function onSubmit({ email, username, password }: ISignUpForm) {
         try {
-            await registerUser({ email, username, password })
+            await registerUser({ email, username, password }).unwrap()
+
+            successMessage('Successful registration!')
+
+            reset()
 
             navigation('/workout-list')
         } catch (e) {
             console.log(e)
+
+            errorMessage(e.data.message)
         }
     }
 
@@ -72,7 +80,7 @@ export default function SignUpForm() {
                         placeholder='Confirm password'
                         label='Confirm password'
                         register={register('confirmPassword')}
-                        error={errors.password?.message}
+                        error={errors.confirmPassword?.message}
                     />
                 </div>
                 <SubmitFormButton>Sign Up</SubmitFormButton>

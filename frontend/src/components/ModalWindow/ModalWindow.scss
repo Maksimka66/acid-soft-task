@@ -6,15 +6,34 @@
     align-items: center;
     justify-content: center;
     z-index: 100;
+    transition: background-color 0.4s ease;
+
+    &--after-open {
+        background-color: #00000066;
+    }
+
+    &--before-close {
+        background-color: #00000000;
+    }
 
     &__content {
         position: relative;
         background-color: #ffffff;
         border-radius: 16px;
-        padding: 24px;
+        padding: 48px 24px;
         width: 100%;
         max-width: 480px;
         outline: none;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+
+        &--after-open {
+            opacity: 1;
+        }
+
+        &--before-close {
+            opacity: 0;
+        }
     }
 }
 

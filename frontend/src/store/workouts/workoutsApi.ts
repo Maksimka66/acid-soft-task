@@ -53,6 +53,7 @@ export const {
     useCreateWorkoutMutation,
     useUpdateWorkoutMutation,
     useDeleteWorkoutMutation,
-    useCompleteWorkoutMutation
+    useCompleteWorkoutMutation,
+    useAddExerciseMutation
 } = workoutsApi
 

@@ -1,18 +1,21 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useAddExerciseMutation } from '../../store/workouts/workoutsApi'
 import type { ICreateExercise } from '../../interfaces/inputData/inputData'
 import { ValidateSchemaCreateExercise } from '../../schemas/createExerciseSchema'
 import SubmitFormButton from '../SubmitFormButton/SubmitFormButton'
 import Input from '../Input/Input'
 import Loader from '../Loader/Loader'
+import { errorMessage, successMessage } from '../../utils/toastMessage'
 import './CreateExerciseForm.scss'
 
 export default function CreateExerciseForm({ workoutId }) {
-    const [createExercise, { isLoading }] = useCreateWorkoutMutation()
+    const [createExercise, { isLoading }] = useAddExerciseMutation()
 
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors }
     } = useForm<ICreateExercise>({
         mode: 'onSubmit',
@@ -21,9 +24,15 @@ export default function CreateExerciseForm({ workoutId }) {
 
     async function onSubmit(inputData: ICreateExercise) {
         try {
-            await createExercise({ workoutId, ...inputData })
+            await createExercise({ workoutId, ...inputData }).unwrap()
+
+            successMessage('New exercise created!')
+
+            reset()
         } catch (e) {
             console.log(e)
+
+            errorMessage(e.data.message)
         }
     }
 
@@ -32,7 +41,7 @@ export default function CreateExerciseForm({ workoutId }) {
     }
 
     return (
-        <form className='' onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <div className='create-workout__container'>
                 <Input
                     id='name'
@@ -44,7 +53,7 @@ export default function CreateExerciseForm({ workoutId }) {
                 />
                 <Input
                     id='sets'
-                    type='number'
+                    type='text'
                     placeholder='Add your sets'
                     label='Sets'
                     register={register('sets')}
@@ -52,7 +61,7 @@ export default function CreateExerciseForm({ workoutId }) {
                 />
                 <Input
                     id='reps'
-                    type='number'
+                    type='text'
                     placeholder='Add your reps'
                     label='Reps'
                     register={register('reps')}
@@ -67,7 +76,7 @@ export default function CreateExerciseForm({ workoutId }) {
                     error={errors.weight?.message}
                 />
             </div>
-            <SubmitFormButton>Create a workout</SubmitFormButton>
+            <SubmitFormButton>Create a exercise</SubmitFormButton>
         </form>
     )
 }

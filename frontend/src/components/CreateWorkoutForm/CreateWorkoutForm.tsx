@@ -7,6 +7,7 @@ import Loader from '../Loader/Loader'
 import SubmitFormButton from '../SubmitFormButton/SubmitFormButton'
 import { ValidateSchemaCreateWorkout } from '../../schemas/createWorkoutSchema'
 import type { ICreateWorkout } from '../../interfaces/inputData/inputData'
+import { errorMessage, successMessage } from '../../utils/toastMessage'
 import './CreateWorkoutForm.scss'
 
 export default function CreateWorkoutForm() {
@@ -17,6 +18,7 @@ export default function CreateWorkoutForm() {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors }
     } = useForm<ICreateWorkout>({
         mode: 'onSubmit',
@@ -25,15 +27,17 @@ export default function CreateWorkoutForm() {
 
     async function onSubmit({ name, description }: ICreateWorkout) {
         try {
-            const { data } = await createWorkout({ name, description })
+            const { data } = await createWorkout({ name, description }).unwrap()
 
-            if (data) {
-                console.log(data.id)
+            reset()
 
-                navigation(`/workout-details/${data.id}`)
-            }
+            successMessage('You`ve created a new workout!')
+
+            navigation(`/workout-details/${data.id}`)
         } catch (e) {
             console.log(e)
+
+            errorMessage(e.data.message)
         }
     }
 
@@ -52,14 +56,17 @@ export default function CreateWorkoutForm() {
                     register={register('name')}
                     error={errors.name?.message}
                 />
-                <Input
-                    id='description'
-                    type='text'
-                    placeholder='Add some info'
-                    label='Description'
-                    register={register('description')}
-                    error={errors.description?.message}
-                />
+                <div className='create-workout__description-layout'>
+                    <label htmlFor='description' className='create-workout__description-label'>
+                        Description
+                    </label>
+                    <textarea
+                        id='description'
+                        className='create-workout__description'
+                        placeholder='Add a description (optional)'
+                        {...register('description')}
+                    />
+                </div>
             </div>
             <SubmitFormButton>Create a workout</SubmitFormButton>
         </form>

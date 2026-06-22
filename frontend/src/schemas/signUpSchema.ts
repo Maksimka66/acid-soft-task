@@ -12,7 +12,10 @@ export const ValidateSchemaSignUp = z
             .string()
             .min(8, 'Password must be at least 8 characters')
             .max(50, 'Password must be at most 50 characters'),
-        confirmPassword: z.string()
+        confirmPassword: z
+            .string()
+            .min(8, 'Password must be at least 8 characters')
+            .max(50, 'Password must be at most 50 characters')
     })
     .refine((data) => data.password === data.confirmPassword, {
         message: 'Passwords don`t match',

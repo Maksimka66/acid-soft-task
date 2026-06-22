@@ -1,21 +1,28 @@
 import { Router } from 'express'
-import { matchedData, validationResult } from 'express-validator'
-import WorkoutService from './workout.service.js'
+import { matchedData } from 'express-validator'
+import { validation } from '../../middlewares/validationMiddleware.js'
+import {
+    getAllWorkouts,
+    getOneWorkout,
+    createWorkout,
+    updateWorkout,
+    deleteWorkout
+} from './workout.service.js'
+import { addWorkoutToHistory } from '../history/history.service.js'
 import {
     createWorkoutSchema,
     getOneWorkoutSchema,
     updateWorkoutSchema
 } from '../../schemas/workoutSchemas.js'
-import { CustomError } from '../../errorHandlers/apiErrors.js'
+import { addWorkoutToHistorySchema } from '../../schemas/addWorkoutToHistorySchema.js'
 
 const workoutRouter = new Router()
 
-const { getAllWorkouts, getOneWorkout, createWorkout, updateWorkout, deleteWorkout } =
-    WorkoutService
-
 workoutRouter.get('/', async (req, res, next) => {
     try {
-        const workouts = await getAllWorkouts()
+        const { id } = req.user
+
+        const workouts = await getAllWorkouts(id)
 
         return res.json(workouts)
     } catch (e) {
@@ -24,17 +31,13 @@ workoutRouter.get('/', async (req, res, next) => {
     }
 })
 
-workoutRouter.get('/:id', getOneWorkoutSchema, async (req, res, next) => {
+workoutRouter.get('/:id', getOneWorkoutSchema, validation, async (req, res, next) => {
     try {
-        const errors = validationResult(req)
-
-        if (!errors.isEmpty()) {
-            return next(CustomError.badRequest('Validation error!', errors.array()))
-        }
-
         const { id } = matchedData(req)
 
-        const workout = await getOneWorkout(id)
+        const userId = req.user.id
+
+        const workout = await getOneWorkout({ id, userId })
 
         return res.json(workout)
     } catch (e) {
@@ -43,14 +46,8 @@ workoutRouter.get('/:id', getOneWorkoutSchema, async (req, res, next) => {
     }
 })
 
-workoutRouter.post('/', createWorkoutSchema, async (req, res, next) => {
+workoutRouter.post('/', createWorkoutSchema, validation, async (req, res, next) => {
     try {
-        const errors = validationResult(req)
-
-        if (!errors.isEmpty()) {
-            return next(CustomError.badRequest('Validation error!', errors.array()))
-        }
-
         const { name, description } = matchedData(req)
 
         const userId = req.user.id
@@ -64,22 +61,18 @@ workoutRouter.post('/', createWorkoutSchema, async (req, res, next) => {
     }
 })
 
-workoutRouter.put('/:id', updateWorkoutSchema, async (req, res, next) => {
+workoutRouter.put('/:id', updateWorkoutSchema, validation, async (req, res, next) => {
     try {
-        const errors = validationResult(req)
-
-        if (!errors.isEmpty()) {
-            return next(CustomError.badRequest('Validation error!', errors.array()))
-        }
-
         const { id, name, description } = matchedData(req)
+
+        const userId = req.user.id
 
         const data = {
             name,
             description: description ? description : 'No description'
         }
 
-        const updatedWorkout = await updateWorkout({ id, data })
+        const updatedWorkout = await updateWorkout({ id, userId, data })
 
         return res.json(updatedWorkout)
     } catch (e) {
@@ -88,26 +81,40 @@ workoutRouter.put('/:id', updateWorkoutSchema, async (req, res, next) => {
     }
 })
 
-workoutRouter.delete('/:id', getOneWorkoutSchema, async (req, res, next) => {
+workoutRouter.delete('/:id', getOneWorkoutSchema, validation, async (req, res, next) => {
     try {
-        const errors = validationResult(req)
-
-        if (!errors.isEmpty()) {
-            return next(CustomError.badRequest('Validation error!', errors.array()))
-        }
-
         const { id } = matchedData(req)
 
-        await deleteWorkout(id)
+        const userId = req.user.id
 
-        return res.json({
-            message: 'Deleted'
-        })
+        const result = await deleteWorkout({ id, userId })
+
+        return res.json(result)
     } catch (e) {
         console.log(e)
         next(e)
     }
 })
+
+workoutRouter.post(
+    '/:id/complete',
+    addWorkoutToHistorySchema,
+    validation,
+    async (req, res, next) => {
+        try {
+            const { id } = matchedData(req)
+
+            const userId = req.user.id
+
+            const addedToHistory = await addWorkoutToHistory({ id, userId })
+
+            return res.status(201).json(addedToHistory)
+        } catch (e) {
+            console.log(e)
+            next(e)
+        }
+    }
+)
 
 export default workoutRouter
 

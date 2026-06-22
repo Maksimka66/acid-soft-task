@@ -1,13 +1,14 @@
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { ValidateSchemaSignIn } from '../../schemas/signInSchema'
 import { useSignInMutation } from '../../store/auth/authApi'
 import type { ISignInForm } from '../../interfaces/inputData/inputData'
 import SubmitFormButton from '../SubmitFormButton/SubmitFormButton'
 import Loader from '../Loader/Loader'
 import Input from '../Input/Input'
+import { errorMessage, successMessage } from '../../utils/toastMessage'
 import './SignInForm.scss'
-import { zodResolver } from '@hookform/resolvers/zod'
 
 export default function SignInForm() {
     const [loginUser, { isLoading }] = useSignInMutation()
@@ -16,6 +17,7 @@ export default function SignInForm() {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors }
     } = useForm<ISignInForm>({
         mode: 'onSubmit',
@@ -24,11 +26,17 @@ export default function SignInForm() {
 
     async function onSubmit({ email, name, password }) {
         try {
-            await loginUser({ email, name, password })
+            await loginUser({ email, name, password }).unwrap()
+
+            successMessage('Successful login!')
+
+            reset()
 
             navigation('/workout-list')
         } catch (e) {
             console.log(e)
+
+            errorMessage(e.data.message)
         }
     }
 

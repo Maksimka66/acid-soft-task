@@ -1,26 +1,26 @@
 import { Router } from 'express'
-import { matchedData, validationResult } from 'express-validator'
-import UserService from './user.service.js'
-import signInSchema from '../../schemas/signInSchema.js'
-import signUpSchema from '../../schemas/signUpSchema.js'
+import { matchedData } from 'express-validator'
+import { signUpUser, signInUser, logoutUser, setNewRefreshToken } from './user.service.js'
+import authHandler from '../../middlewares/authMiddleware.js'
+import { validation } from '../../middlewares/validationMiddleware.js'
+import { signInSchema } from '../../schemas/signInSchema.js'
+import { signUpSchema } from '../../schemas/signUpSchema.js'
 import { logoutSchema } from '../../schemas/logoutSchema.js'
-import { CustomError } from '../../errorHandlers/apiErrors.js'
+import { refreshSchema } from '../../schemas/refreshSchema.js'
+import { validateToken } from './user.utils.js'
 
 const userRouter = new Router()
 
-const { findUser, signUpUser, signInUser } = UserService
-
-userRouter.post('/signup', signUpSchema, async (req, res, next) => {
+userRouter.post('/signup', signUpSchema, validation, async (req, res, next) => {
     try {
-        const errors = validationResult(req)
-
-        if (!errors.isEmpty()) {
-            return next(CustomError.badRequest('Validation error!', errors.array()))
-        }
-
         const { username, email, password } = matchedData(req)
 
-        const createdUser = await signUpUser(username, email, password)
+        const createdUser = await signUpUser({ username, email, password })
+
+        res.cookie('refreshToken', createdUser.refreshToken, {
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+            httpOnly: true
+        })
 
         return res.status(201).json(createdUser)
     } catch (e) {
@@ -29,14 +29,8 @@ userRouter.post('/signup', signUpSchema, async (req, res, next) => {
     }
 })
 
-userRouter.post('/signin', signInSchema, async (req, res, next) => {
+userRouter.post('/signin', signInSchema, validation, async (req, res, next) => {
     try {
-        const errors = validationResult(req)
-
-        if (!errors.isEmpty()) {
-            return next(CustomError.badRequest('Validation error!', errors.array()))
-        }
-
         const { email, password } = matchedData(req)
 
         const user = await signInUser({ email, password })
@@ -53,27 +47,35 @@ userRouter.post('/signin', signInSchema, async (req, res, next) => {
     }
 })
 
-userRouter.post('/logout', logoutSchema, async (req, res, next) => {
+userRouter.post('/logout', logoutSchema, validation, async (req, res, next) => {
     try {
-        const errors = validationResult(req)
-
-        if (!errors.isEmpty()) {
-            return next(CustomError.badRequest('Validation error!', errors.array()))
-        }
-
         const { refreshToken } = matchedData(req)
+
+        const result = await logoutUser({ refreshToken })
 
         res.clearCookie('refreshToken')
 
-        return res.json(refreshToken)
+        return res.json(result)
     } catch (e) {
         console.log(e)
         next(e)
     }
 })
 
-userRouter.get('/refresh', async (req, res, next) => {
+userRouter.get('/refresh', refreshSchema, validation, async (req, res, next) => {
     try {
+        const { refreshToken } = matchedData(req)
+
+        validateToken(refreshToken, process.env.JWT_REFRESH_KEY)
+
+        const user = await setNewRefreshToken(refreshToken)
+
+        res.cookie('refreshToken', refreshToken, {
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+            httpOnly: true
+        })
+
+        return res.json(user)
     } catch (e) {
         console.log(e)
         next(e)

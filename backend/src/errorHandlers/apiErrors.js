@@ -19,6 +19,10 @@ export class CustomError extends Error {
         return new CustomError(403, message)
     }
 
+    static notFound(message) {
+        return new CustomError(404, message)
+    }
+
     static tooManyRequests() {
         return new CustomError(429, 'Too many requests!')
     }

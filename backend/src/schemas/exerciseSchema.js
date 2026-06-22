@@ -2,7 +2,7 @@ import { body, param } from 'express-validator'
 import { trimReplace } from './schemaUtils.js'
 
 export const getAllExercisesSchema = [
-    param('workoutId').customSanitizer(trimReplace).notEmpty().withMessage('Id should not be empty')
+    param('workoutId').notEmpty().withMessage('Id should not be empty')
 ]
 
 export const createExerciseSchema = [

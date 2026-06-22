@@ -16,12 +16,11 @@ export function generateTokens(userData) {
 }
 
 export function validateToken(token, secretKey) {
-    const isVerifyed = jwt.verify(token, secretKey)
+    const payload = jwt.verify(token, secretKey)
 
-    if (!isVerifyed) {
+    if (!payload) {
         throw CustomError.unauthorized()
     }
 
-    return isVerifyed
+    return payload
 }
-

@@ -1,20 +1,60 @@
 .details {
+    padding-inline: 48px;
+
     &__main-info {
-        background-color: #faeeda;
+        background-color: #dad7d2;
         border: 1px solid #fac775;
         border-radius: 10px;
-        padding: 24px;
+        padding: 36px;
         margin-bottom: 16px;
         display: flex;
         justify-content: space-between;
-        // gap: 12px;
+    }
+
+    &__first {
+        display: flex;
+        gap: 16px;
+    }
+
+    &__dumbbell-container {
+        width: 48px;
+        height: 48px;
+        background-color: #ba7517;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__workout-name {
+        font-size: 20px;
+        font-weight: 500;
+        color: #412402;
+        margin-bottom: 6px;
+    }
+
+    &__created-date-layout {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    &__created-date {
+        font-size: 14px;
+        color: #854f0b;
+    }
+
+    &__second {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
     }
 
     &__description-layout {
         border-radius: 10px;
         padding: 16px 20px;
         margin-bottom: 16px;
-        background-color: #30302e;
         border: 1px solid #1f1e1d26;
     }
 
@@ -41,15 +81,17 @@
             margin-bottom: 10px;
         }
 
-        &-title {
-        }
-
         &-add {
             padding: 8px 16px;
-            font-size: 14px;
+            font-size: 16px;
+            font-weight: 500;
             border-radius: 8px;
             color: #141413;
             border: 1px solid #1f1e1d4d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
     }
 }

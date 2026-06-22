@@ -11,15 +11,15 @@ function authHandler(req, res, next) {
             return next(CustomError.unauthorized())
         }
 
-        const decodedData = validateToken(accessToken, process.env.JWT_ACCESS_KEY)
+        const payload = validateToken(accessToken, process.env.JWT_ACCESS_KEY)
 
-        if (!decodedData) {
+        if (!payload) {
             return next(CustomError.unauthorized())
         }
 
-        req.user = decodedData
+        req.user = payload
 
-        next()
+        return next()
     } catch (e) {
         return next(CustomError.unauthorized())
     }

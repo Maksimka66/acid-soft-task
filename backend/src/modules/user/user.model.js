@@ -20,8 +20,8 @@ export const User = sequelize.define('user', {
     },
     refreshToken: {
         type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: ''
+        allowNull: true,
+        defaultValue: null
     }
 })
 

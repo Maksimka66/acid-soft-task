@@ -7,9 +7,17 @@ export default function ModalWindow({ isOpen, onClose, children }) {
         <Modal
             isOpen={isOpen}
             onRequestClose={onClose}
-            overlayClassName='modal-overlay'
-            className='modal-overlay__content'
-            // closeTimeoutMS={200}
+            closeTimeoutMS={400}
+            overlayClassName={{
+                base: 'modal-overlay',
+                afterOpen: 'modal-overlay--after-open',
+                beforeClose: 'modal-overlay--before-close'
+            }}
+            className={{
+                base: 'modal-overlay__content',
+                afterOpen: 'modal-overlay__content--after-open',
+                beforeClose: 'modal-overlay__content--before-close'
+            }}
         >
             <CloseButton onClose={onClose} />
             {children}

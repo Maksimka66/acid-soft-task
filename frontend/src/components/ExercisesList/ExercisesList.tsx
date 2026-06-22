@@ -1,9 +1,10 @@
+import EmptyState from '../EmptyState/EmptyState'
 import ExercisesItem from '../ExercisesItem/ExercisesItem'
 import './ExercisesList.scss'
 
 export default function ExercisesList({ exercises }) {
     if (!exercises || !exercises.length) {
-        return <div>No exercises</div>
+        return <EmptyState>No exercises</EmptyState>
     }
 
     return (

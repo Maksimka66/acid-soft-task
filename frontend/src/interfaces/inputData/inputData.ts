@@ -12,7 +12,12 @@ export interface ISignInForm {
 
 export interface ICreateWorkout {
     name: string
-    description: string
+    description?: string
+}
+
+export interface IUpdateWorkout {
+    name: string
+    description?: string
 }
 
 export interface ICreateExercise {

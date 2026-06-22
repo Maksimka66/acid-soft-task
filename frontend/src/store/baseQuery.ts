@@ -5,7 +5,7 @@ import {
     type FetchBaseQueryError
 } from '@reduxjs/toolkit/query'
 import { type RootState } from './store'
-import { savedToken } from './auth/authSlice'
+import { savedTokens } from './auth/authSlice'
 
 const baseQuery = fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
@@ -24,7 +24,7 @@ const baseQuery = fetchBaseQuery({
 })
 
 const baseQueryForRefresh = fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_CLIENT_URL,
+    baseUrl: import.meta.env.VITE_API_URL,
     prepareHeaders: (headers: Headers, { getState }) => {
         const state = getState() as RootState
         const refreshToken = state.auth.refreshToken
@@ -47,19 +47,17 @@ export const baseQueryWithReauth: BaseQueryFn<
     let result = await baseQuery(args, api, extraOptions)
 
     if (result.error && result.error.status === 401) {
-        // const state = api.getState() as RootState
-
         const refreshResult = await baseQueryForRefresh(
             {
-                url: '/user/refresh',
-                method: 'POST'
+                url: '/api/user/refresh',
+                method: 'GET'
             },
             api,
             extraOptions
         )
 
         if (refreshResult.data) {
-            api.dispatch(savedToken(refreshResult.data))
+            api.dispatch(savedTokens(refreshResult.data))
 
             result = await baseQuery(args, api, extraOptions)
         } else {

@@ -1,7 +1,7 @@
 import { body } from 'express-validator'
 import { passwordValidationRegex, trimReplace } from './schemaUtils.js'
 
-const signUpSchema = [
+export const signUpSchema = [
     body('username')
         .customSanitizer(trimReplace)
         .notEmpty()
@@ -37,6 +37,4 @@ const signUpSchema = [
             return checked
         })
 ]
-
-export default signUpSchema
 

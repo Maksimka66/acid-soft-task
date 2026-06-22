@@ -1,12 +1,13 @@
 import { NavLink } from 'react-router-dom'
 import Back from '../../icons/Back/Back'
+import './BackToPreviousPage.scss'
 
 export default function BackToPreviousPage({ to, children }) {
     return (
-        <div className='back-link-layout'>
+        <NavLink className='back-link' to={to}>
             <Back />
-            <NavLink to={to}>{children}</NavLink>
-        </div>
+            {children}
+        </NavLink>
     )
 }
 

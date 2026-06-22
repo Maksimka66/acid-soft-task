@@ -18,9 +18,13 @@ export const authSlice = createSlice({
         selectEmail: (state) => state.email
     },
     reducers: {
-        savedToken: (state, { payload }) => {
+        savedTokens: (state, { payload }) => {
             state.accessToken = payload.accessToken
             state.refreshToken = payload.refreshToken
+        },
+        removeTokens: (state) => {
+            state.accessToken = ''
+            state.refreshToken = ''
         }
     },
     extraReducers(builder) {
@@ -48,7 +52,7 @@ export const authSlice = createSlice({
 export const { selectAccessToken, selectRefreshToken, selectUsername, selectEmail } =
     authSlice.selectors
 
-export const { savedToken } = authSlice.actions
+export const { savedTokens, removeTokens } = authSlice.actions
 
 export const authReducer = authSlice.reducer
 
