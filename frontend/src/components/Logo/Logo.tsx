@@ -1,4 +1,10 @@
+import LogoIcon from '../../icons/LogoIcon/LogoIcon'
+
 export default function Logo() {
-    return <div>logo</div>
+    return (
+        <div>
+            <LogoIcon />
+        </div>
+    )
 }
 

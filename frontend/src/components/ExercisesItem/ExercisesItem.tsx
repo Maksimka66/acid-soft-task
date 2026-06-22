@@ -14,7 +14,7 @@ export default function ExercisesItem({ exercise }) {
                         <span>{exercise.sets}</span>
                     </li>
                     <li className=''>
-                        <span>{exercise.rets}</span>
+                        <span>{exercise.reps}</span>
                     </li>
                     <li className=''>
                         <span>{exercise.weight}</span>

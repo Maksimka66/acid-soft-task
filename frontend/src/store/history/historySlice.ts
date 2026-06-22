@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { historyApi } from './historyApi'
+import { workoutsApi } from '../workouts/workoutsApi'
 
 const initialState = {
     history: []
@@ -17,6 +18,13 @@ export const historySlice = createSlice({
             historyApi.endpoints.getFullHistory.matchFulfilled,
             (state, { payload }) => {
                 state.history = payload
+            }
+        )
+
+        builder.addMatcher(
+            workoutsApi.endpoints.completeWorkout.matchFulfilled,
+            (state, { payload }) => {
+                state.history.push(payload)
             }
         )
     }

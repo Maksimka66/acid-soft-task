@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ChangeEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useDebounce } from 'use-debounce'
 import { filterWorkouts, selectWorkouts } from '../../store/workouts/workoutsSlice'
@@ -8,11 +8,11 @@ import Header from '../../components/Header/Header'
 import AddWorkoutButton from '../../components/AddWorkoutButton/AddWorkoutButton'
 import CreateWorkoutForm from '../../components/CreateWorkoutForm/CreateWorkoutForm'
 import WorkoutItem from '../../components/WorkoutItem/WorkoutItem'
+import FilteredWorkoutList from '../../components/FilteredWorkoutList/FilteredWorkoutList'
 import SearchWorkout from '../../components/SearchWorkout/SearchWorkout'
 import EmptyState from '../../components/EmptyState/EmptyState'
 import { errorMessage } from '../../utils/toastMessage'
 import './WorkoutList.scss'
-import FilteredWorkoutList from '../../components/FilteredWorkoutList/FilteredWorkoutList'
 
 export default function WorkoutList() {
     const [text, setText] = useState('')
@@ -59,7 +59,9 @@ export default function WorkoutList() {
                     <h2 className=''></h2>
                     <AddWorkoutButton openModal={() => toggleModal(true)} />
                 </div>
-                <SearchWorkout onChange={(e) => setText(e.target.value)} />
+                <SearchWorkout
+                    onChange={(e: ChangeEvent) => setText((e.target as HTMLInputElement).value)}
+                />
 
                 {filterText ? (
                     <FilteredWorkoutList />

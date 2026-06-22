@@ -65,11 +65,6 @@ export const workoutsSlice = createSlice({
                 state.workouts = state.workouts.filter((workout) => workout.id !== payload.id)
             }
         )
-
-        builder.addMatcher(
-            workoutsApi.endpoints.completeWorkout.matchFulfilled,
-            (state, { payload }) => {}
-        )
     }
 })
 

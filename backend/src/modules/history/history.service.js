@@ -1,9 +1,10 @@
 import { History } from './history.model.js'
 import { Workout } from '../workout/workout.model.js'
+import { getOneWorkout } from '../workout/workout.service.js'
 import { CustomError } from '../../errorHandlers/apiErrors.js'
 
-export async function getHistory() {
-    const history = await History.findAll({ include: [Workout] })
+export async function getHistory({ id }) {
+    const history = await History.findAll({ where: { userId: id }, include: [Workout] })
 
     return history
 }

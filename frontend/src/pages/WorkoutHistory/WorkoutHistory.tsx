@@ -4,10 +4,14 @@ import './WorkoutHistory.scss'
 
 export default function WorkoutHistory() {
     return (
-        <div className='workout-history'>
+        <>
             <Header />
-            <HistoryList />
-        </div>
+            <div className='workout-history'>
+                <h2 className='workout-history__title'>Workout history</h2>
+                <p className='workout-history__text'>Track your completed workouts over time</p>
+                <HistoryList />
+            </div>
+        </>
     )
 }
 

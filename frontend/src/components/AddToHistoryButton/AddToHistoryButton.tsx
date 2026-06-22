@@ -1,11 +1,11 @@
-import { useLazyGetFullHistoryQuery } from '../../store/history/historyApi'
+import { useCompleteWorkoutMutation } from '../../store/workouts/workoutsApi'
 import Loader from '../Loader/Loader'
 import Check from '../../icons/Check/Check'
 import { errorMessage, successMessage } from '../../utils/toastMessage'
 import './AddToHistoryButton.scss'
 
 export default function AddToHistoryButton({ id }) {
-    const [addToHistory, { isLoading }] = useLazyGetFullHistoryQuery()
+    const [addToHistory, { isLoading }] = useCompleteWorkoutMutation()
 
     async function handleAddToHistory() {
         try {

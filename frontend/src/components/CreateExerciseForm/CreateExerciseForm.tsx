@@ -23,9 +23,9 @@ export default function CreateExerciseForm({ id, isOpen, onClose }) {
         resolver: zodResolver(ValidateSchemaCreateExercise)
     })
 
-    async function onSubmit(inputData: ICreateExercise) {
+    async function onSubmit({ name, sets, reps, weight }: ICreateExercise) {
         try {
-            await createExercise({ id, ...inputData }).unwrap()
+            await createExercise({ id, name, sets, reps, weight }).unwrap()
 
             onClose()
 

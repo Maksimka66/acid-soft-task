@@ -10,7 +10,7 @@ import {
     deleteExercise
 } from './exercise.service.js'
 
-const exerciseRouter = new Router()
+const exerciseRouter = new Router({ mergeParams: true })
 
 exerciseRouter.get('/', async (req, res, next) => {
     try {

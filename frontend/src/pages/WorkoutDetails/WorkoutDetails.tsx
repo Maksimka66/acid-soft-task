@@ -62,6 +62,8 @@ export default function WorkoutDetails() {
         return <Loader />
     }
 
+    console.log(currentWorkout.exercises)
+
     return (
         <>
             <Header />
@@ -123,7 +125,7 @@ export default function WorkoutDetails() {
                                     Add exercise
                                 </button>
                             </div>
-                            <ExercisesList exercises={currentWorkout.exercises} />
+                            <ExercisesList id={id}/>
                         </div>
                         {currentWorkout && <AddToHistoryButton id={id} />}
                     </div>

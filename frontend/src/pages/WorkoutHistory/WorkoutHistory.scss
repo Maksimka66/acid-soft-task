@@ -1,9 +1,6 @@
 .workout-history {
-    &__container {
-        max-width: 680px;
-        margin: 0 auto;
-        padding: 16px 24px;
-    }
+    margin: 0 auto;
+    padding: 16px 48px;
 
     &__title {
         font-size: 22px;
@@ -12,10 +9,10 @@
         margin-bottom: 4px;
     }
 
-    &__sub {
+    &__text {
         font-size: 14px;
         color: #5f5e5a;
-        margin-bottom: 16px;
+        margin-bottom: 24px;
     }
 }
 
