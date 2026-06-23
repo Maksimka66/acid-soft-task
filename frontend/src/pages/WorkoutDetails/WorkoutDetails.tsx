@@ -45,7 +45,7 @@ export default function WorkoutDetails() {
         }
 
         receiveWorkout()
-    }, [currentWorkout, getWorkout, id])
+    }, [getWorkout, id])
 
     function toggleModalForExercise(toggle: boolean) {
         setIsOpenForExercise(toggle)
@@ -125,6 +125,7 @@ export default function WorkoutDetails() {
                         </div>
                         {currentWorkout && <AddToHistoryButton id={id} />}
                     </div>
+                    (
                     <ModalWindow
                         isOpen={isOpenForExercise}
                         onClose={() => toggleModalForExercise(false)}
@@ -135,6 +136,7 @@ export default function WorkoutDetails() {
                             onClose={() => toggleModalForExercise(false)}
                         />
                     </ModalWindow>
+                    )
                 </>
             ) : (
                 <EmptyState>No such workout</EmptyState>
