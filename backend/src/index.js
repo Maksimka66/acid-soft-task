@@ -18,7 +18,7 @@ app.use(
 )
 app.use(express.json())
 app.use(cookieParser())
-// app.use(limiter)
+app.use(limiter)
 app.use('/api', router)
 app.use(errorHandler)
 
