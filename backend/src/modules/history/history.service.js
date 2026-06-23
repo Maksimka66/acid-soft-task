@@ -4,7 +4,14 @@ import { getOneWorkout } from '../workout/workout.service.js'
 import { CustomError } from '../../errorHandlers/apiErrors.js'
 
 export async function getHistory({ id }) {
-    const history = await History.findAll({ where: { userId: id }, include: [Workout] })
+    const history = await History.findAll({
+        include: [
+            {
+                model: Workout,
+                where: { userId: id }
+            }
+        ]
+    })
 
     return history
 }

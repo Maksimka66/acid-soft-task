@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getHistory, addWorkoutToHistory } from './history.service.js'
+import { getHistory } from './history.service.js'
 
 const historyRouter = new Router()
 

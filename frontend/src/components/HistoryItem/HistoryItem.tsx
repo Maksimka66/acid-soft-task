@@ -1,18 +1,27 @@
 import Check from '../../icons/Check/Check'
+import { formatDate } from '../../utils/formatDate'
+import Loader from '../Loader/Loader'
+import './HistoryItem.scss'
 
 export default function HistoryItem({ historyItem }) {
-    // console.log(historyItem)
+    const { createdAt, workout } = historyItem
 
     return (
         <div className='history-item'>
             <div className='history-item__icon'>
                 <Check />
             </div>
-            <div className='history-item__info'>
-                <p className='history-item__name'>{historyItem.name}</p>
-                <p className='history-item__date'>{historyItem.createdAt}</p>
-            </div>
-            <span className='history-item__time'>{historyItem.createdAt}</span>
+            {workout ? (
+                <>
+                    <div className='history-item__info'>
+                        <p className='history-item__name'>{workout.name}</p>
+                        <p className='history-item__description'>{workout.description}</p>
+                    </div>
+                    <span className='history-item__time'>{formatDate(createdAt)}</span>
+                </>
+            ) : (
+                <Loader />
+            )}
         </div>
     )
 }

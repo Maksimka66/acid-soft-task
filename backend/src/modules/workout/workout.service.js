@@ -25,7 +25,7 @@ export async function createWorkout({ userId, name, description }) {
     const newWorkout = await Workout.create({
         userId,
         name,
-        description
+        description: description ? description : 'No description'
     })
 
     return newWorkout

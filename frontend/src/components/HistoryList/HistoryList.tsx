@@ -11,6 +11,8 @@ import './HistoryList.scss'
 export default function HistoryList() {
     const [getHistory, { isLoading }] = useLazyGetFullHistoryQuery()
 
+    const historyList = useSelector(selectHistory)
+
     useEffect(() => {
         async function receiveHistory() {
             try {
@@ -25,14 +27,12 @@ export default function HistoryList() {
         receiveHistory()
     }, [getHistory])
 
-    const historyList = useSelector(selectHistory)
+    if (isLoading) {
+        return <Loader />
+    }
 
     if (!historyList || !historyList.length) {
         return <EmptyState>Your history is empty!</EmptyState>
-    }
-
-    if (isLoading) {
-        return <Loader />
     }
 
     return (
