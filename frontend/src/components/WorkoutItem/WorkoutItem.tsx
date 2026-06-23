@@ -5,8 +5,9 @@ import Calendar from '../../icons/Calendar/Calendar'
 import Dumbbell from '../../icons/Dumbbell/Dumbbell'
 import ConfirmDeleteWorkout from '../ConfirmDeleteWorkout/ConfirmDeleteWorkout'
 import ChangeWorkoutForm from '../ChangeWorkoutForm/ChangeWorkoutForm'
-import DeleteWorkoutButton from '../DeleteWorkoutButton/DeleteWorkoutButton'
-import EditWorkoutButton from '../EditWorkoutButton/EditWorkoutButton'
+import DeleteButton from '../DeleteButton/DeleteButton'
+import EditButton from '../EditButton/EditButton'
+import { formatDate } from '../../utils/formatDate'
 import './WorkoutItem.scss'
 
 export default function WorkoutItem({ workoutItem }) {
@@ -21,7 +22,10 @@ export default function WorkoutItem({ workoutItem }) {
         setIsOpenForDelete(toggle)
     }
 
-    const { id, name, description, createdAt } = workoutItem
+    const { id, name, description, createdAt, updatedAt } = workoutItem
+
+    const formattedCreateDate = formatDate(createdAt)
+    const formattedUpdatedDate = formatDate(updatedAt)
 
     return (
         <>
@@ -30,22 +34,19 @@ export default function WorkoutItem({ workoutItem }) {
                     <Dumbbell />
                 </div>
                 <div className='item-icons-layout__action-container'>
-                    <EditWorkoutButton isOpen={isOpenForEdit} toggleModal={toggleModalForEdit}>
+                    <EditButton isOpen={isOpenForEdit} toggleModal={toggleModalForEdit}>
                         <ChangeWorkoutForm
                             id={id}
                             onClose={() => toggleModalForEdit(false)}
                             isOpen={isOpenForEdit}
                         />
-                    </EditWorkoutButton>
-                    <DeleteWorkoutButton
-                        isOpen={isOpenForDelete}
-                        toggleModal={toggleModalForDelete}
-                    >
+                    </EditButton>
+                    <DeleteButton isOpen={isOpenForDelete} toggleModal={toggleModalForDelete}>
                         <ConfirmDeleteWorkout
                             id={id}
                             toggleModal={() => toggleModalForDelete(false)}
                         />
-                    </DeleteWorkoutButton>
+                    </DeleteButton>
                 </div>
             </div>
             <div className='item-icons-layout__bottom-container'>
@@ -54,7 +55,10 @@ export default function WorkoutItem({ workoutItem }) {
                 <div className='item-icons-layout__date-layout'>
                     <div className='date'>
                         <Calendar />
-                        <span>{createdAt}</span>
+                        <div className='date__values'>
+                            <span>Created: {formattedCreateDate}</span>
+                            <span>Updated: {formattedUpdatedDate}</span>
+                        </div>
                     </div>
                     <NavLink className='details-link' to={`/workout-details/${id}`}>
                         <Arrow />

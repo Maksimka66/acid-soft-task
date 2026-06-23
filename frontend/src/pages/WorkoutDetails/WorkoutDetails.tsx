@@ -6,8 +6,8 @@ import { useLazyGetOneWorkoutQuery } from '../../store/workouts/workoutsApi'
 import Header from '../../components/Header/Header'
 import AddExerciseForm from '../../components/CreateExerciseForm/CreateExerciseForm'
 import BackToPreviousPage from '../../components/BackToPreviousPage/BackToPreviousPage'
-import EditWorkoutButton from '../../components/EditWorkoutButton/EditWorkoutButton'
-import DeleteWorkoutButton from '../../components/DeleteWorkoutButton/DeleteWorkoutButton'
+import EditButton from '../../components/EditButton/EditButton'
+import DeleteButton from '../../components/DeleteButton/DeleteButton'
 import ConfirmDeleteWorkout from '../../components/ConfirmDeleteWorkout/ConfirmDeleteWorkout'
 import ChangeWorkoutForm from '../../components/ChangeWorkoutForm/ChangeWorkoutForm'
 import Dumbbell from '../../icons/Dumbbell/Dumbbell'
@@ -19,6 +19,7 @@ import AddToHistoryButton from '../../components/AddToHistoryButton/AddToHistory
 import ModalWindow from '../../components/ModalWindow/ModalWindow'
 import EmptyState from '../../components/EmptyState/EmptyState'
 import { errorMessage } from '../../utils/toastMessage'
+import { formatDate } from '../../utils/formatDate'
 import './WorkoutDetails.scss'
 
 export default function WorkoutDetails() {
@@ -44,7 +45,7 @@ export default function WorkoutDetails() {
         }
 
         receiveWorkout()
-    }, [getWorkout, id])
+    }, [currentWorkout, getWorkout, id])
 
     function toggleModalForExercise(toggle: boolean) {
         setIsOpenForExercise(toggle)
@@ -62,8 +63,6 @@ export default function WorkoutDetails() {
         return <Loader />
     }
 
-    console.log(currentWorkout.exercises)
-
     return (
         <>
             <Header />
@@ -76,28 +75,25 @@ export default function WorkoutDetails() {
                                 <div className='details__dumbbell-container'>
                                     <Dumbbell />
                                 </div>
-                                <div className=''>
+                                <div>
                                     <h2 className='details__workout-name'>{currentWorkout.name}</h2>
                                     <div className='details__created-date-layout'>
                                         <Calendar />
                                         <span className='details__created-date'>
-                                            {currentWorkout.createdAt}
+                                            {formatDate(currentWorkout.updatedAt)}
                                         </span>
                                     </div>
                                 </div>
                             </div>
                             <div className='details__second'>
-                                <EditWorkoutButton
-                                    isOpen={isOpenForEdit}
-                                    toggleModal={toggleModalForEdit}
-                                >
+                                <EditButton isOpen={isOpenForEdit} toggleModal={toggleModalForEdit}>
                                     <ChangeWorkoutForm
                                         id={id}
                                         isOpen={isOpenForEdit}
                                         onClose={() => toggleModalForEdit(false)}
                                     />
-                                </EditWorkoutButton>
-                                <DeleteWorkoutButton
+                                </EditButton>
+                                <DeleteButton
                                     isOpen={isOpenForDelete}
                                     toggleModal={toggleModalForDelete}
                                 >
@@ -105,7 +101,7 @@ export default function WorkoutDetails() {
                                         id={id}
                                         toggleModal={() => toggleModalForDelete(false)}
                                     />
-                                </DeleteWorkoutButton>
+                                </DeleteButton>
                             </div>
                         </div>
                         <div className='details__description-layout'>
@@ -125,7 +121,7 @@ export default function WorkoutDetails() {
                                     Add exercise
                                 </button>
                             </div>
-                            <ExercisesList id={id}/>
+                            <ExercisesList />
                         </div>
                         {currentWorkout && <AddToHistoryButton id={id} />}
                     </div>

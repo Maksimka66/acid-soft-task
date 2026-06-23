@@ -3,8 +3,8 @@ export default function Exercise() {
         <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='#000000'
-            width='18px'
-            height='18px'
+            width='24px'
+            height='24px'
             viewBox='0 0 24 24'
             version='1.1'
         >

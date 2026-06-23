@@ -1,7 +1,11 @@
 import { Router } from 'express'
 import { matchedData } from 'express-validator'
 import { validation } from '../../middlewares/validationMiddleware.js'
-import { createExerciseSchema } from '../../schemas/exerciseSchema.js'
+import {
+    createExerciseSchema,
+    deleteExerciseSchema,
+    updateExerciseSchema
+} from '../../schemas/exerciseSchema.js'
 import {
     getAllExercises,
     getOneExercise,
@@ -27,7 +31,7 @@ exerciseRouter.get('/', async (req, res, next) => {
     }
 })
 
-exerciseRouter.get('/:id', async (req, res, next) => {
+exerciseRouter.get('/:exerciseId', async (req, res, next) => {
     try {
         const { id, workoutId } = matchedData(req)
 
@@ -57,9 +61,9 @@ exerciseRouter.post('/', createExerciseSchema, validation, async (req, res, next
     }
 })
 
-exerciseRouter.put('/:id', validation, async (req, res, next) => {
+exerciseRouter.put('/:exerciseId', updateExerciseSchema, validation, async (req, res, next) => {
     try {
-        const { id, workoutId, name, sets, reps, weight } = matchedData(req)
+        const { id: workoutId, exerciseId: id, name, sets, reps, weight } = matchedData(req)
 
         const userId = req.user.id
 
@@ -74,12 +78,13 @@ exerciseRouter.put('/:id', validation, async (req, res, next) => {
     }
 })
 
-exerciseRouter.delete('/:id', validation, async (req, res, next) => {
+exerciseRouter.delete('/:exerciseId', deleteExerciseSchema, validation, async (req, res, next) => {
     try {
-        const { id, workoutId } = matchedData(req)
+        const { id: workoutId, exerciseId: id } = matchedData(req)
+
         const userId = req.user.id
 
-        const result = await deleteExercise({ id, workoutId, userId })
+        const result = await deleteExercise({ workoutId, id, userId })
 
         return res.json(result)
     } catch (e) {

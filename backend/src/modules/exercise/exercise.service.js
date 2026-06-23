@@ -59,8 +59,8 @@ export async function updateExercise({ id, workoutId, userId, data }) {
 export async function deleteExercise({ id, workoutId, userId }) {
     const exercise = await getOneExercise({ id, workoutId, userId })
 
-    await exercise.destroy()
+    const res = await exercise.destroy()
 
-    return exercise
+    return res
 }
 

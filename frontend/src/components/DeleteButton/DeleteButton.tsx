@@ -1,8 +1,8 @@
 import Delete from '../../icons/Delete/Delete'
 import ModalWindow from '../ModalWindow/ModalWindow'
-import './DeleteWorkoutButton.scss'
+import './DeleteButton.scss'
 
-export default function DeleteWorkoutButton({ children, toggleModal, isOpen }) {
+export default function DeleteButton({ children, toggleModal, isOpen }) {
     return (
         <>
             <button className='delete-button' onClick={() => toggleModal(true)}>

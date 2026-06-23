@@ -4,7 +4,8 @@ import { workoutsApi } from './workoutsApi'
 const initialState = {
     workouts: [],
     filteredWorkouts: [],
-    currentWorkout: null
+    currentWorkout: null,
+    exercises: []
 }
 
 export const workoutsSlice = createSlice({
@@ -13,7 +14,8 @@ export const workoutsSlice = createSlice({
     selectors: {
         selectWorkouts: (state) => state.workouts,
         selectFilteredWorkouts: (state) => state.filteredWorkouts,
-        selectCurrentWorkout: (state) => state.currentWorkout
+        selectCurrentWorkout: (state) => state.currentWorkout,
+        selectExercises: (state) => state.exercises
     },
     reducers: {
         filterWorkouts: (state, { payload }) => {
@@ -38,6 +40,7 @@ export const workoutsSlice = createSlice({
             workoutsApi.endpoints.getOneWorkout.matchFulfilled,
             (state, { payload }) => {
                 state.currentWorkout = payload
+                state.exercises = payload.exercises
             }
         )
 
@@ -65,10 +68,33 @@ export const workoutsSlice = createSlice({
                 state.workouts = state.workouts.filter((workout) => workout.id !== payload.id)
             }
         )
+
+        builder.addMatcher(
+            workoutsApi.endpoints.addExercise.matchFulfilled,
+            (state, { payload }) => {
+                state.exercises.push(payload)
+            }
+        )
+
+        builder.addMatcher(
+            workoutsApi.endpoints.deleteExercise.matchFulfilled,
+            (state, { payload }) => {
+                state.exercises = state.exercises.filter((item) => item.id !== payload.id)
+            }
+        )
+
+        builder.addMatcher(
+            workoutsApi.endpoints.updateExercise.matchFulfilled,
+            (state, { payload }) => {
+                const updatedIndex = state.exercises.findIndex((item) => item.id === payload.id)
+
+                state.exercises[updatedIndex] = payload
+            }
+        )
     }
 })
 
-export const { selectWorkouts, selectFilteredWorkouts, selectCurrentWorkout } =
+export const { selectWorkouts, selectFilteredWorkouts, selectCurrentWorkout, selectExercises } =
     workoutsSlice.selectors
 
 export const { filterWorkouts } = workoutsSlice.actions

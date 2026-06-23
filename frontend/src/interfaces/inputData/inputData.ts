@@ -27,3 +27,10 @@ export interface ICreateExercise {
     weight: number
 }
 
+export interface IUpdateExercise {
+    name: string
+    sets: number
+    reps: number
+    weight: number
+}
+

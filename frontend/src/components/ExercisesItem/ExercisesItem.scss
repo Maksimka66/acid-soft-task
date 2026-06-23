@@ -1,0 +1,53 @@
+.exercises {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.exercises-icon {
+    padding: 16px;
+    background-color: #f1efe8;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.exercises-layout {
+    display: flex;
+    flex-direction: column;
+
+    &__name {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #2c2c2a;
+    }
+
+    &__dates {
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+        color: #2e2d2c;
+    }
+}
+
+.exercises-items {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+
+    &__item {
+        font-size: 12px;
+        border-radius: 16px;
+        padding: 4px 10px;
+        color: #2e2d2c;
+        background-color: #f1efe8;
+    }
+}
+
+.exercises-actions {
+    display: flex;
+    gap: 12px;
+}
+

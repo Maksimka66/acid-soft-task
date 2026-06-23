@@ -1,35 +1,35 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useAddExerciseMutation } from '../../store/workouts/workoutsApi'
-import type { ICreateExercise } from '../../interfaces/inputData/inputData'
+import { useUpdateExerciseMutation } from '../../store/workouts/workoutsApi'
+import type { IUpdateExercise } from '../../interfaces/inputData/inputData'
 import { ValidateSchemaCreateExercise } from '../../schemas/createExerciseSchema'
 import SubmitFormButton from '../SubmitFormButton/SubmitFormButton'
 import Input from '../Input/Input'
 import Loader from '../Loader/Loader'
-import { errorMessage, successMessage } from '../../utils/toastMessage'
-import './CreateExerciseForm.scss'
 import ModalWindow from '../ModalWindow/ModalWindow'
+import { errorMessage, successMessage } from '../../utils/toastMessage'
+import './ChangeExerciseForm.scss'
 
-export default function CreateExerciseForm({ id, isOpen, onClose }) {
-    const [createExercise, { isLoading }] = useAddExerciseMutation()
+export default function ChangeExerciseForm({ id, exerciseId, isOpen, onClose }) {
+    const [createExercise, { isLoading }] = useUpdateExerciseMutation()
 
     const {
         register,
         handleSubmit,
         reset,
         formState: { errors }
-    } = useForm<ICreateExercise>({
+    } = useForm<IUpdateExercise>({
         mode: 'onSubmit',
         resolver: zodResolver(ValidateSchemaCreateExercise)
     })
-   
-    async function onSubmit({ name, sets, reps, weight }: ICreateExercise) {
+
+    async function onSubmit({ name, sets, reps, weight }: IUpdateExercise) {
         try {
-            await createExercise({ id, name, sets, reps, weight }).unwrap()
+            await createExercise({ id, exerciseId, name, sets, reps, weight }).unwrap()
 
             onClose()
 
-            successMessage('New exercise created!')
+            successMessage('Exercise updated!')
 
             reset()
         } catch (e) {
@@ -46,7 +46,7 @@ export default function CreateExerciseForm({ id, isOpen, onClose }) {
     return (
         <ModalWindow isOpen={isOpen} onClose={onClose}>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className='create-exercise__container'>
+                <div className='update-exercise__container'>
                     <Input
                         id='name'
                         type='text'
@@ -84,7 +84,7 @@ export default function CreateExerciseForm({ id, isOpen, onClose }) {
                         step={0.01}
                     />
                 </div>
-                <SubmitFormButton>Create a exercise</SubmitFormButton>
+                <SubmitFormButton>Update a exercise</SubmitFormButton>
             </form>
         </ModalWindow>
     )

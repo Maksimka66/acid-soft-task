@@ -1,8 +1,8 @@
 import Edit from '../../icons/Edit/Edit'
 import ModalWindow from '../ModalWindow/ModalWindow'
-import './EditWorkoutButton.scss'
+import './EditButton.scss'
 
-export default function EditWorkoutButton({ children, toggleModal, isOpen }) {
+export default function EditButton({ children, toggleModal, isOpen }) {
     return (
         <>
             <button className='edit-button' onClick={() => toggleModal(true)}>

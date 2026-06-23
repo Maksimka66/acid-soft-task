@@ -43,6 +43,19 @@ export const workoutsApi = createApi({
                 method: 'POST',
                 body
             })
+        }),
+        deleteExercise: builder.mutation({
+            query: ({ id, exerciseId }) => ({
+                url: `/api/workouts/${id}/exercises/${exerciseId}`,
+                method: 'DELETE'
+            })
+        }),
+        updateExercise: builder.mutation({
+            query: ({ id, exerciseId, ...body }) => ({
+                url: `/api/workouts/${id}/exercises/${exerciseId}`,
+                method: 'PUT',
+                body
+            })
         })
     })
 })
@@ -54,6 +67,8 @@ export const {
     useUpdateWorkoutMutation,
     useDeleteWorkoutMutation,
     useCompleteWorkoutMutation,
-    useAddExerciseMutation
+    useAddExerciseMutation,
+    useDeleteExerciseMutation,
+    useUpdateExerciseMutation
 } = workoutsApi
 
