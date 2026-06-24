@@ -20,6 +20,7 @@ import ModalWindow from '../../components/ModalWindow/ModalWindow'
 import EmptyState from '../../components/EmptyState/EmptyState'
 import { errorMessage } from '../../utils/toastMessage'
 import { formatDate } from '../../utils/formatDate'
+import { isApiError } from '../../utils/isApiError'
 import './WorkoutDetails.scss'
 
 export default function WorkoutDetails() {
@@ -38,9 +39,9 @@ export default function WorkoutDetails() {
             try {
                 await getWorkout(id).unwrap()
             } catch (e) {
-                console.log(e)
-
-                errorMessage(e.data.message)
+                if (isApiError(e)) {
+                    errorMessage(e.data.message)
+                }
             }
         }
 

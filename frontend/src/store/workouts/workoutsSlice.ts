@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { workoutsApi } from './workoutsApi'
+import type { WorkoutsState } from '../../interfaces/state/workouts'
 
-const initialState = {
+const initialState: WorkoutsState = {
     workouts: [],
     totalPages: 1,
     filteredWorkouts: [],

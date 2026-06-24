@@ -3,5 +3,18 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+
+    &__item {
+        background-color: #ffffff;
+        border: 1px solid #d3d1c7;
+        border-radius: 16px;
+        padding: 16px 20px;
+        gap: 12px;
+        transition: border-color 0.15s;
+
+        &:hover {
+            border-color: #fac775;
+        }
+    }
 }
 

@@ -1,4 +1,4 @@
-import type { InputProps } from '../../interfaces/props/props'
+import type { InputProps } from '../../interfaces/props/shared/shared'
 import './Input.scss'
 
 export default function Input(props: InputProps) {

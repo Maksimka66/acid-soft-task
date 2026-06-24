@@ -1,16 +1,8 @@
 .history-item {
-    background-color: #ffffff;
-    border: 1px solid #d3d1c7;
-    border-radius: 16px;
-    padding: 16px 20px;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
-    transition: border-color 0.15s;
-
-    &:hover {
-        border-color: #fac775;
-    }
 
     &__icon {
         width: 42px;
@@ -39,6 +31,9 @@
 
     &__description {
         font-size: 12px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         color: #888780;
     }
 

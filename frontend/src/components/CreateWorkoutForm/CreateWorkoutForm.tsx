@@ -9,9 +9,11 @@ import ModalWindow from '../ModalWindow/ModalWindow'
 import { ValidateSchemaCreateWorkout } from '../../schemas/createWorkoutSchema'
 import type { ICreateWorkout } from '../../interfaces/inputData/inputData'
 import { errorMessage, successMessage } from '../../utils/toastMessage'
+import type { CreateWorkoutFormProps } from '../../interfaces/props/forms/forms'
+import { isApiError } from '../../utils/isApiError'
 import './CreateWorkoutForm.scss'
 
-export default function CreateWorkoutForm({ isOpen, onClose }) {
+export default function CreateWorkoutForm({ isOpen, onClose }: CreateWorkoutFormProps) {
     const navigation = useNavigate()
 
     const [createWorkout, { isLoading }] = useCreateWorkoutMutation()
@@ -38,9 +40,9 @@ export default function CreateWorkoutForm({ isOpen, onClose }) {
 
             navigation(`/workout-details/${res.id}`)
         } catch (e) {
-            console.log(e)
-
-            errorMessage(e.data.message)
+            if (isApiError(e)) {
+                errorMessage(e.data.message)
+            }
         }
     }
 

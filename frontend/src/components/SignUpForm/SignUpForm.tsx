@@ -8,6 +8,7 @@ import Input from '../Input/Input'
 import Loader from '../Loader/Loader'
 import SubmitFormButton from '../SubmitFormButton/SubmitFormButton'
 import { errorMessage, successMessage } from '../../utils/toastMessage'
+import { isApiError } from '../../utils/isApiError'
 import './SignUpForm.scss'
 
 export default function SignUpForm() {
@@ -34,9 +35,9 @@ export default function SignUpForm() {
 
             navigation('/workout-list')
         } catch (e) {
-            console.log(e)
-
-            errorMessage(e.data.message)
+            if (isApiError(e)) {
+                errorMessage(e.data.message)
+            }
         }
     }
 

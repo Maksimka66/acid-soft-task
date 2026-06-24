@@ -1,8 +1,14 @@
 import { useDeleteExerciseMutation } from '../../store/workouts/workoutsApi'
 import Loader from '../Loader/Loader'
 import { errorMessage, successMessage } from '../../utils/toastMessage'
+import type { ConfirmDeleteExerciseProps } from '../../interfaces/props/shared/shared'
+import { isApiError } from '../../utils/isApiError'
 
-export default function ConfirmDeleteExercise({ id, exerciseId, toggleModal }) {
+export default function ConfirmDeleteExercise({
+    id,
+    exerciseId,
+    toggleModal
+}: ConfirmDeleteExerciseProps) {
     const [removeExercise, { isLoading }] = useDeleteExerciseMutation()
 
     async function deleteWorkout() {
@@ -13,9 +19,9 @@ export default function ConfirmDeleteExercise({ id, exerciseId, toggleModal }) {
 
             successMessage('You`ve deleted this exercise!')
         } catch (e) {
-            console.log(e)
-
-            errorMessage(e.data.message)
+            if (isApiError(e)) {
+                errorMessage(e.data.message)
+            }
         }
     }
 
@@ -35,7 +41,7 @@ export default function ConfirmDeleteExercise({ id, exerciseId, toggleModal }) {
                 </button>
                 <button
                     className='buttons-container__button buttons-container__button--reject'
-                    onClick={toggleModal}
+                    onClick={() => toggleModal(false)}
                 >
                     No
                 </button>

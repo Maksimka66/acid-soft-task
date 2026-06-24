@@ -19,6 +19,7 @@ A full-stack web application for creating workout plans, managing exercises, and
 * Add exercises to workouts
 * View workout details
 * Mark workouts as completed
+* Added pagination for workouts list
 
 ### Workout History
 

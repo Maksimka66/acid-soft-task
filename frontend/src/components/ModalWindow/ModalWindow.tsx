@@ -1,8 +1,9 @@
 import Modal from 'react-modal'
 import CloseButton from '../CloseButton/CloseButton'
+import type { ModalWindowProps } from '../../interfaces/props/shared/shared'
 import './ModalWindow.scss'
 
-export default function ModalWindow({ isOpen, onClose, children }) {
+export default function ModalWindow({ isOpen, onClose, children }: ModalWindowProps) {
     return (
         <Modal
             isOpen={isOpen}

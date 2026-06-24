@@ -6,11 +6,13 @@ import { ValidateSchemaCreateExercise } from '../../schemas/createExerciseSchema
 import SubmitFormButton from '../SubmitFormButton/SubmitFormButton'
 import Input from '../Input/Input'
 import Loader from '../Loader/Loader'
-import { errorMessage, successMessage } from '../../utils/toastMessage'
-import './CreateExerciseForm.scss'
 import ModalWindow from '../ModalWindow/ModalWindow'
+import { errorMessage, successMessage } from '../../utils/toastMessage'
+import type { CreateExerciseFormProps } from '../../interfaces/props/forms/forms'
+import { isApiError } from '../../utils/isApiError'
+import './CreateExerciseForm.scss'
 
-export default function CreateExerciseForm({ id, isOpen, onClose }) {
+export default function CreateExerciseForm({ id, isOpen, onClose }: CreateExerciseFormProps) {
     const [createExercise, { isLoading }] = useAddExerciseMutation()
 
     const {
@@ -22,7 +24,7 @@ export default function CreateExerciseForm({ id, isOpen, onClose }) {
         mode: 'onSubmit',
         resolver: zodResolver(ValidateSchemaCreateExercise)
     })
-   
+
     async function onSubmit({ name, sets, reps, weight }: ICreateExercise) {
         try {
             await createExercise({ id, name, sets, reps, weight }).unwrap()
@@ -33,9 +35,9 @@ export default function CreateExerciseForm({ id, isOpen, onClose }) {
 
             reset()
         } catch (e) {
-            console.log(e)
-
-            errorMessage(e.data.message)
+            if (isApiError(e)) {
+                errorMessage(e.data.message)
+            }
         }
     }
 

@@ -6,6 +6,7 @@ import HistoryItem from '../HistoryItem/HistoryItem'
 import Loader from '../Loader/Loader'
 import EmptyState from '../EmptyState/EmptyState'
 import { errorMessage } from '../../utils/toastMessage'
+import { isApiError } from '../../utils/isApiError'
 import './HistoryList.scss'
 
 export default function HistoryList() {
@@ -18,9 +19,9 @@ export default function HistoryList() {
             try {
                 await getHistory({}).unwrap()
             } catch (e) {
-                console.log(e)
-
-                errorMessage(e.data.message)
+                if (isApiError(e)) {
+                    errorMessage(e.data.message)
+                }
             }
         }
 
@@ -38,7 +39,7 @@ export default function HistoryList() {
     return (
         <ul className='history-workout'>
             {historyList.map((historyItem) => (
-                <li key={historyItem.id}>
+                <li className='history-workout__item' key={historyItem.id}>
                     <HistoryItem historyItem={historyItem} />
                 </li>
             ))}

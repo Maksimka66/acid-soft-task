@@ -1,9 +1,10 @@
 import Check from '../../icons/Check/Check'
+import type { HistoryItemProps } from '../../interfaces/state/history'
 import { formatDate } from '../../utils/formatDate'
 import Loader from '../Loader/Loader'
 import './HistoryItem.scss'
 
-export default function HistoryItem({ historyItem }) {
+export default function HistoryItem({ historyItem }: HistoryItemProps) {
     const { createdAt, workout } = historyItem
 
     return (

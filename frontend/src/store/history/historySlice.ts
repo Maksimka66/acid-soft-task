@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { historyApi } from './historyApi'
 import { workoutsApi } from '../workouts/workoutsApi'
+import type { HistoryState } from '../../interfaces/state/history'
 
-const initialState = {
+const initialState: HistoryState = {
     history: []
 }
 

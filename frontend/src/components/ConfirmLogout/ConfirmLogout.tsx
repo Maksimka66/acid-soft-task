@@ -3,9 +3,11 @@ import { useLogOutMutation } from '../../store/auth/authApi'
 import { removeTokens } from '../../store/auth/authSlice'
 import Loader from '../Loader/Loader'
 import { errorMessage, successMessage } from '../../utils/toastMessage'
+import { isApiError } from '../../utils/isApiError'
+import type { ConfirmLogoutProps } from '../../interfaces/props/shared/shared'
 import './ConfirmLogout.scss'
 
-export default function ConfirmLogout({ toggleModal }) {
+export default function ConfirmLogout({ toggleModal }: ConfirmLogoutProps) {
     const [handleLogout, { isLoading }] = useLogOutMutation()
 
     const dispatch = useDispatch()
@@ -18,9 +20,9 @@ export default function ConfirmLogout({ toggleModal }) {
 
             successMessage('Successful logout!')
         } catch (e) {
-            console.log(e)
-
-            errorMessage(e.data.message)
+            if (isApiError(e)) {
+                errorMessage(e.data.message)
+            }
         }
     }
 

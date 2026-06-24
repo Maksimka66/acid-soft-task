@@ -8,6 +8,7 @@ import SubmitFormButton from '../SubmitFormButton/SubmitFormButton'
 import Loader from '../Loader/Loader'
 import Input from '../Input/Input'
 import { errorMessage, successMessage } from '../../utils/toastMessage'
+import { isApiError } from '../../utils/isApiError'
 import './SignInForm.scss'
 
 export default function SignInForm() {
@@ -24,9 +25,9 @@ export default function SignInForm() {
         resolver: zodResolver(ValidateSchemaSignIn)
     })
 
-    async function onSubmit({ email, name, password }) {
+    async function onSubmit({ email, password }: ISignInForm) {
         try {
-            await loginUser({ email, name, password }).unwrap()
+            await loginUser({ email, password }).unwrap()
 
             successMessage('Successful login!')
 
@@ -34,9 +35,9 @@ export default function SignInForm() {
 
             navigation('/workout-list')
         } catch (e) {
-            console.log(e)
-
-            errorMessage(e.data.message)
+            if (isApiError(e)) {
+                errorMessage(e.data.message)
+            }
         }
     }
 

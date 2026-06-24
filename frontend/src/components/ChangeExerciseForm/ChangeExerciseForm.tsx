@@ -8,9 +8,16 @@ import Input from '../Input/Input'
 import Loader from '../Loader/Loader'
 import ModalWindow from '../ModalWindow/ModalWindow'
 import { errorMessage, successMessage } from '../../utils/toastMessage'
+import type { ChangeExerciseFormProps } from '../../interfaces/props/forms/forms'
+import { isApiError } from '../../utils/isApiError'
 import './ChangeExerciseForm.scss'
 
-export default function ChangeExerciseForm({ id, exerciseId, isOpen, onClose }) {
+export default function ChangeExerciseForm({
+    id,
+    exerciseId,
+    isOpen,
+    onClose
+}: ChangeExerciseFormProps) {
     const [createExercise, { isLoading }] = useUpdateExerciseMutation()
 
     const {
@@ -33,9 +40,9 @@ export default function ChangeExerciseForm({ id, exerciseId, isOpen, onClose }) 
 
             reset()
         } catch (e) {
-            console.log(e)
-
-            errorMessage(e.data.message)
+            if (isApiError(e)) {
+                errorMessage(e.data.message)
+            }
         }
     }
 

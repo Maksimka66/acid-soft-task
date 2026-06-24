@@ -3,14 +3,16 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import SubmitFormButton from '../SubmitFormButton/SubmitFormButton'
 import Input from '../Input/Input'
 import Loader from '../Loader/Loader'
+import ModalWindow from '../ModalWindow/ModalWindow'
 import { useUpdateWorkoutMutation } from '../../store/workouts/workoutsApi'
 import type { IUpdateWorkout } from '../../interfaces/inputData/inputData'
 import { ValidateSchemaUpdateWorkout } from '../../schemas/updateWorkoutSchema'
 import { errorMessage, successMessage } from '../../utils/toastMessage'
+import { isApiError } from '../../utils/isApiError'
+import type { ChangeWorkoutFormProps } from '../../interfaces/props/forms/forms'
 import './ChangeWorkoutForm.scss'
-import ModalWindow from '../ModalWindow/ModalWindow'
 
-export default function ChangeWorkoutForm({ id, isOpen, onClose }) {
+export default function ChangeWorkoutForm({ id, isOpen, onClose }: ChangeWorkoutFormProps) {
     const [updateWorkout, { isLoading }] = useUpdateWorkoutMutation()
 
     const {
@@ -30,9 +32,9 @@ export default function ChangeWorkoutForm({ id, isOpen, onClose }) {
 
             successMessage('Successful updated workout!')
         } catch (e) {
-            console.log(e)
-
-            errorMessage(e.data.message)
+            if (isApiError(e)) {
+                errorMessage(e.data.message)
+            }
         }
     }
 

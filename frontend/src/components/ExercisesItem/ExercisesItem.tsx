@@ -6,9 +6,10 @@ import { formatDate } from '../../utils/formatDate'
 import DeleteButton from '../DeleteButton/DeleteButton'
 import EditButton from '../EditButton/EditButton'
 import ConfirmDeleteExercise from '../ConfirmDeleteExercise/ConfirmDeleteExercise'
+import type { ExercisesItemProps } from '../../interfaces/state/exercises'
 import './ExercisesItem.scss'
 
-export default function ExercisesItem({ exerciseItem }) {
+export default function ExercisesItem({ exerciseItem }: ExercisesItemProps) {
     const { name, sets, reps, weight, createdAt, updatedAt } = exerciseItem
 
     const { id } = useParams()

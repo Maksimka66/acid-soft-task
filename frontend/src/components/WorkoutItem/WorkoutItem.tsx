@@ -8,9 +8,10 @@ import ChangeWorkoutForm from '../ChangeWorkoutForm/ChangeWorkoutForm'
 import DeleteButton from '../DeleteButton/DeleteButton'
 import EditButton from '../EditButton/EditButton'
 import { formatDate } from '../../utils/formatDate'
+import type { WorkoutItemProps } from '../../interfaces/state/workouts'
 import './WorkoutItem.scss'
 
-export default function WorkoutItem({ workoutItem }) {
+export default function WorkoutItem({ workoutItem }: WorkoutItemProps) {
     const [isOpenForEdit, setIsOpenForEdit] = useState(false)
     const [isOpenForDelete, setIsOpenForDelete] = useState(false)
 
