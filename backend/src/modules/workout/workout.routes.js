@@ -20,9 +20,16 @@ const workoutRouter = new Router()
 
 workoutRouter.get('/', async (req, res, next) => {
     try {
-        const { id } = req.user
+        const { id: userId } = req.user
 
-        const workouts = await getAllWorkouts(id)
+        let { limit, page } = req.query
+
+        page = page || 1
+        limit = limit || 10
+
+        const offset = page * limit - limit
+
+        const workouts = await getAllWorkouts({ userId, limit, offset })
 
         return res.json(workouts)
     } catch (e) {

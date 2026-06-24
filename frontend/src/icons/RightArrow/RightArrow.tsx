@@ -1,14 +1,14 @@
-export default function Arrow() {
+export default function RightArrow() {
     return (
         <svg
             xmlns='http://www.w3.org/2000/svg'
-            width='16px'
-            height='16px'
+            width='24px'
+            height='24px'
             viewBox='0 0 24 24'
             fill='none'
         >
             <path
-                d='M5 12H19M19 12L13 6M19 12L13 18'
+                d='M6 12H18M18 12L13 7M18 12L13 17'
                 stroke='#000000'
                 strokeWidth='2'
                 strokeLinecap='round'

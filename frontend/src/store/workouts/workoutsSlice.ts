@@ -3,6 +3,7 @@ import { workoutsApi } from './workoutsApi'
 
 const initialState = {
     workouts: [],
+    totalPages: 1,
     filteredWorkouts: [],
     currentWorkout: null,
     exercises: []
@@ -14,6 +15,7 @@ export const workoutsSlice = createSlice({
     selectors: {
         selectWorkouts: (state) => state.workouts,
         selectFilteredWorkouts: (state) => state.filteredWorkouts,
+        selectTotalPages: (state) => state.totalPages,
         selectCurrentWorkout: (state) => state.currentWorkout,
         selectExercises: (state) => state.exercises
     },
@@ -32,7 +34,9 @@ export const workoutsSlice = createSlice({
         builder.addMatcher(
             workoutsApi.endpoints.getAllWorkouts.matchFulfilled,
             (state, { payload }) => {
-                state.workouts = payload
+                state.workouts = payload.rows
+
+                state.totalPages = Math.ceil(payload.count / 10)
             }
         )
 
@@ -94,8 +98,13 @@ export const workoutsSlice = createSlice({
     }
 })
 
-export const { selectWorkouts, selectFilteredWorkouts, selectCurrentWorkout, selectExercises } =
-    workoutsSlice.selectors
+export const {
+    selectWorkouts,
+    selectFilteredWorkouts,
+    selectTotalPages,
+    selectCurrentWorkout,
+    selectExercises
+} = workoutsSlice.selectors
 
 export const { filterWorkouts } = workoutsSlice.actions
 

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import Arrow from '../../icons/Arrow/Arrow'
+import RightArrow from '../../icons/RightArrow/RightArrow'
 import Calendar from '../../icons/Calendar/Calendar'
 import Dumbbell from '../../icons/Dumbbell/Dumbbell'
 import ConfirmDeleteWorkout from '../ConfirmDeleteWorkout/ConfirmDeleteWorkout'
@@ -61,7 +61,7 @@ export default function WorkoutItem({ workoutItem }) {
                         </div>
                     </div>
                     <NavLink className='details-link' to={`/workout-details/${id}`}>
-                        <Arrow />
+                        <RightArrow />
                         Details
                     </NavLink>
                 </div>

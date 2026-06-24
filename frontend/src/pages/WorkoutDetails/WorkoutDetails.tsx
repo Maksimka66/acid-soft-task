@@ -36,7 +36,7 @@ export default function WorkoutDetails() {
     useEffect(() => {
         async function receiveWorkout() {
             try {
-                await getWorkout(id)
+                await getWorkout(id).unwrap()
             } catch (e) {
                 console.log(e)
 
@@ -123,9 +123,8 @@ export default function WorkoutDetails() {
                             </div>
                             <ExercisesList />
                         </div>
-                        {currentWorkout && <AddToHistoryButton id={id} />}
+                        <AddToHistoryButton id={id} />
                     </div>
-                    (
                     <ModalWindow
                         isOpen={isOpenForExercise}
                         onClose={() => toggleModalForExercise(false)}
@@ -136,7 +135,6 @@ export default function WorkoutDetails() {
                             onClose={() => toggleModalForExercise(false)}
                         />
                     </ModalWindow>
-                    )
                 </>
             ) : (
                 <EmptyState>No such workout</EmptyState>

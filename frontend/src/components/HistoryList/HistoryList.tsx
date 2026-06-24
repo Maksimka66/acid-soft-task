@@ -16,7 +16,7 @@ export default function HistoryList() {
     useEffect(() => {
         async function receiveHistory() {
             try {
-                await getHistory({})
+                await getHistory({}).unwrap()
             } catch (e) {
                 console.log(e)
 

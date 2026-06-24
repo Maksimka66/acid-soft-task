@@ -2,8 +2,8 @@ import { Workout } from './workout.model.js'
 import { Exercise } from '../exercise/exercise.model.js'
 import { CustomError } from '../../errorHandlers/apiErrors.js'
 
-export async function getAllWorkouts(userId) {
-    const workouts = await Workout.findAll({ where: { userId } })
+export async function getAllWorkouts({ userId, limit, offset }) {
+    const workouts = await Workout.findAndCountAll({ where: { userId }, limit, offset })
 
     return workouts
 }

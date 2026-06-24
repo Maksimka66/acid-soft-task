@@ -1,0 +1,18 @@
+.pagination-layout {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+
+    &__button {
+        background-color: #9aa09e;
+        padding: 16px;
+        border-radius: 50%;
+
+        &:disabled {
+            cursor: not-allowed;
+            background-color: #e61111;
+        }
+    }
+}
+

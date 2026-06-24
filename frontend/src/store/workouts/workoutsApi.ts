@@ -6,7 +6,7 @@ export const workoutsApi = createApi({
     baseQuery: baseQueryWithReauth,
     endpoints: (builder) => ({
         getAllWorkouts: builder.query({
-            query: () => '/api/workouts'
+            query: ({ page, limit }) => `/api/workouts?page=${page}&limit=${limit}`
         }),
         getOneWorkout: builder.query({
             query: (id) => `/api/workouts/${id}`
