@@ -6,6 +6,7 @@ import './Pagination.scss'
 export default function Pagination({
     handlePrevious,
     handleNext,
+    page,
     disabledPrevious,
     disabledNext
 }: PaginationProps) {
@@ -18,6 +19,7 @@ export default function Pagination({
             >
                 <LeftArrow />
             </button>
+            <span className='pagination-layout__page'>Page {page}</span>
             <button
                 className='pagination-layout__button'
                 onClick={handleNext}

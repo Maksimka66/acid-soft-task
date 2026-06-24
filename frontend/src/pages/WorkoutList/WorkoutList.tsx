@@ -92,8 +92,9 @@ export default function WorkoutList() {
                         <Pagination
                             handlePrevious={previousPage}
                             handleNext={nextPage}
+                            page={page}
                             disabledPrevious={page === 1}
-                            disabledNext={page === totalPages}
+                            disabledNext={page > totalPages}
                         />
                     </>
                 ) : (

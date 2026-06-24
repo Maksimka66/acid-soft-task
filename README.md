@@ -66,6 +66,7 @@ A full-stack web application for creating workout plans, managing exercises, and
 * RTK Query (baseQueryWithReauth) interceptors for authentication handling
 * Protected routes for authorized users
 * Global state management with Redux Toolkit
+* Debouncer for workout list filtration
 
 ### Backend
 
@@ -86,7 +87,7 @@ A full-stack web application for creating workout plans, managing exercises, and
 
 ## Database Setup
 
-Start PostgreSQL via Docker:
+Start PostgreSQL and Redis via Docker:
 
 ```bash
 docker-compose --env-file ./backend/.env up -d

@@ -58,6 +58,7 @@ export interface ConfirmDeleteWorkoutProps {
 export interface PaginationProps {
     handlePrevious: () => void
     handleNext: () => void
+    page: number
     disabledPrevious: boolean
     disabledNext: boolean
 }
