@@ -22,16 +22,13 @@ workoutRouter.get('/', async (req, res, next) => {
     try {
         const { id: userId } = req.user
 
-        let { limit, page } = req.query
-
-        page = page || 1
-        limit = limit || 10
+        const { limit, page } = req.query
 
         const offset = page * limit - limit
 
         const workouts = await getAllWorkouts({ userId, limit, offset })
 
-        return res.json(workouts)
+        return res.json({ page, ...workouts })
     } catch (e) {
         console.log(e)
         next(e)
