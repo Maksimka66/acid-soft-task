@@ -16,6 +16,7 @@ services:
 
     redis:
       image: "redis:latest"
+      restart: always
       container_name: "acid_cache"
       environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}

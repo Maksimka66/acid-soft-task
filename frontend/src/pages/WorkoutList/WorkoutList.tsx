@@ -94,7 +94,7 @@ export default function WorkoutList() {
                             handleNext={nextPage}
                             page={page}
                             disabledPrevious={page === 1}
-                            disabledNext={page > totalPages}
+                            disabledNext={page === totalPages}
                         />
                     </>
                 ) : (

@@ -37,7 +37,7 @@ export const workoutsSlice = createSlice({
             (state, { payload }) => {
                 state.workouts = payload.rows
 
-                state.totalPages = Math.ceil(payload.count / 10)
+                state.totalPages = Math.ceil(payload.count / 8)
             }
         )
 
