@@ -9,6 +9,8 @@ A full-stack web application for creating workout plans, managing exercises, and
 * JWT-based authentication
 * Access and refresh token flow
 * Automatic token refresh via RTK Query interceptors
+* Access token is stored in localStorage and persists between sessions
+* Refresh token is stored in an httpOnly cookie and is handled automatically by the browser
 * Protected API routes
 * Password hashing
 * Rate limiting to prevent API abuse
