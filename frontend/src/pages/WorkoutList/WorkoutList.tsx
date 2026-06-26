@@ -46,7 +46,7 @@ export default function WorkoutList() {
         }
 
         receiveWorkouts()
-    }, [getAllWorkouts, page, totalPages])
+    }, [getAllWorkouts, page])
 
     useEffect(() => {
         dispatch(filterWorkouts(filterText))
@@ -98,7 +98,16 @@ export default function WorkoutList() {
                         />
                     </>
                 ) : (
-                    <EmptyState>You don't have any workouts for now</EmptyState>
+                    <>
+                        <EmptyState>You don't have any workouts for now</EmptyState>
+                        <Pagination
+                            handlePrevious={previousPage}
+                            handleNext={nextPage}
+                            page={page}
+                            disabledPrevious={page === 1}
+                            disabledNext={page === totalPages}
+                        />
+                    </>
                 )}
             </div>
             <CreateWorkoutForm isOpen={isOpen} onClose={() => toggleModal(false)} />

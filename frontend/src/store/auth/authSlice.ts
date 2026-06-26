@@ -1,8 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { authApi } from './authApi'
+import type { AuthData } from '../../interfaces/state/auth'
 
-const initialState = {
-    accessToken: '',
+const accessToken = localStorage.getItem('accessToken')
+
+const initialState: AuthData = {
+    accessToken,
     refreshToken: '',
     username: '',
     email: ''
@@ -33,6 +36,8 @@ export const authSlice = createSlice({
             state.refreshToken = payload.refreshToken
             state.username = payload.username
             state.email = payload.email
+
+            localStorage.setItem('accessToken', payload.accessToken)
         })
 
         builder.addMatcher(authApi.endpoints.signIn.matchFulfilled, (state, { payload }) => {
@@ -40,11 +45,15 @@ export const authSlice = createSlice({
             state.refreshToken = payload.refreshToken
             state.username = payload.username
             state.email = payload.email
+
+            localStorage.setItem('accessToken', payload.accessToken)
         })
 
         builder.addMatcher(authApi.endpoints.logOut.matchFulfilled, (state) => {
             state.accessToken = ''
             state.refreshToken = ''
+
+            localStorage.removeItem('accessToken')
         })
     }
 })
